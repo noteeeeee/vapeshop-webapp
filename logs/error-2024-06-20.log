@@ -1,0 +1,736 @@
+Error	01:13:55 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:13:56 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:13:57 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:13:58 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:13:59 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:00 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:01 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:02 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:03 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:04 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:05 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:06 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:07 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:08 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:09 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:10 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:11 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:12 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:13 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:14 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:15 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:16 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:17 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:18 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:19 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:20 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:21 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:22 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:23 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:24 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:25 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}
+Error	01:14:26 [Scheduler] ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp' - {
+  stack: [
+    "Error: ENOENT: no such file or directory, scandir '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'\n" +
+      '    at Object.readdirSync (node:fs:1508:26)\n' +
+      '    at StorageService.deleteOldTempDirs (/Users/admin/WebstormProjects/vapeshop-webapp/apps/server/src/storage/storage.service.ts:249:8)\n' +
+      '    at CronJob.<anonymous> (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/schedule.explorer.js:96:33)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:95:27)\n' +
+      '    at CronJob.fireOnTick (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/@nestjs+schedule@4.0.2_@nestjs+common@10.3.9_@nestjs+core@10.3.9/node_modules/@nestjs/schedule/dist/scheduler.registry.js:102:33)\n' +
+      '    at Timeout.callbackWrapper [as _onTimeout] (/Users/admin/WebstormProjects/vapeshop-webapp/node_modules/.pnpm/cron@3.1.7/node_modules/cron/dist/job.js:142:22)\n' +
+      '    at listOnTimeout (node:internal/timers:573:17)\n' +
+      '    at processTimers (node:internal/timers:514:7)'
+  ],
+  error: {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'scandir',
+    path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+  },
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/Users/admin/WebstormProjects/vapeshop-webapp/uploads/tmp'
+}

@@ -1,0 +1,43 @@
+{
+  "name": "@vapeshop-webapp/client",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node --max-old-space-size=4096 ./node_modules/nuxt/bin/nuxt.mjs generate --no-clear",
+    "dev": "nuxt dev --no-clear --https --ssl-cert ../../compat/127.0.0.1.pem --ssl-key ../../compat/127.0.0.1-key.pem",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@formkit/addons": "^1.6.5",
+    "@formkit/core": "^1.6.5",
+    "@formkit/nuxt": "^1.6.5",
+    "@formkit/vue": "^1.6.5",
+    "@nuxt/image": "^1.7.0",
+    "@nuxtjs/critters": "^0.7.1",
+    "@tanstack/vue-query": "^5.45.0",
+    "axios": "^1.7.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lodash": "^4.17.21",
+    "lucide-vue-next": "^0.395.0",
+    "nprogress": "^0.2.0",
+    "nuxt": "^3.12.1",
+    "radix-vue": "^1.8.3",
+    "shadcn-nuxt": "^0.10.4",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7",
+    "vite-svg-loader": "^5.1.0",
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.3",
+    "vue-tg": "^0.6.1",
+    "vue-virtual-scroller": "2.0.0-beta.8"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.0",
+    "@types/lodash": "^4.17.5",
+    "@vapeshop-webapp/config": "link:../../packages/config",
+    "dayjs-nuxt": "^2.1.9",
+    "sass": "^1.77.5",
+    "typescript": "^5.4.5"
+  }
+}
