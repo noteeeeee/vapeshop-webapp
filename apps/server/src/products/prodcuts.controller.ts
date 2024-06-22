@@ -2,18 +2,14 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiExcludeEndpoint,
-  TransformResponse,
-} from '../common';
-import {
-  ProductsService,
-} from './products.service';
+import { ApiExcludeEndpoint, TransformResponse } from '../common';
+import { paginateConfig, ProductsService } from './products.service';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -25,12 +21,24 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { IsAdminGuard } from '../admin';
-import {CreateProductDto, ProductDto, UpdateProductDto} from "./dto";
+import { CreateProductDto, ProductDto, UpdateProductDto } from './dto';
+import { Paginate, PaginatedSwaggerDocs, PaginateQuery } from 'nestjs-paginate';
 
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
+
+  @Get('paginate')
+  @ApiOperation({
+    summary: 'Paginate Products',
+    description: 'Get paginated list of products',
+  })
+  @TransformResponse(ProductDto)
+  @PaginatedSwaggerDocs(ProductDto, paginateConfig)
+  paginate(@Paginate() query: PaginateQuery) {
+    return this.productsService.paginate(query);
+  }
 
   @ApiExcludeEndpoint()
   @Post()

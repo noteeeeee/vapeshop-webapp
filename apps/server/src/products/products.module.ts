@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import {
   ProductEntity,
   ProductFilterEntity,
-  ProductPriceEntity,
+  ProductSaleEntity,
 } from './entities';
 import { ProductsService } from './products.service';
 import { ProductsController } from './prodcuts.controller';
@@ -14,7 +14,7 @@ import { CategoriesModule } from '../categories/categories.module';
     TypeOrmModule.forFeature([
       ProductEntity,
       ProductFilterEntity,
-      ProductPriceEntity,
+      ProductSaleEntity,
     ]),
     CategoriesModule,
   ],

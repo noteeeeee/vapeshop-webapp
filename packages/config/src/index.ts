@@ -13,6 +13,7 @@ export const EnvConfig = {
   APP_BASEURL: env.get("APP_BASEURL").required().asString(),
   API_BASEURL: env.get("API_BASEURL").required().asString(),
   JWT_SECRET: env.get("JWT_SECRET").required().asString(),
+  ENCRYPTION_KEY: env.get("ENCRYPTION_KEY").required().asString(),
 
   // Database
   DATABASE_TYPE: env.get("DATABASE_TYPE").default("mysql").asString(),

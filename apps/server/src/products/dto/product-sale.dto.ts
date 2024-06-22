@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import { ProductPriceEntity } from '../entities';
+import { ProductSaleEntity } from '../entities';
 
 @Exclude()
-export class ProductPriceDto {
+export class ProductSaleDto {
   @Expose()
   @ApiProperty({
     example: 1,
@@ -15,7 +15,7 @@ export class ProductPriceDto {
   @ApiProperty({ example: 100, description: 'The price of the product' })
   price: number;
 
-  constructor(partial: Partial<ProductPriceEntity>) {
+  constructor(partial: Partial<ProductSaleEntity>) {
     Object.assign(this, partial);
   }
 }

@@ -1,17 +1,15 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 import { PriceColumn } from '../../common';
 import { ProductEntity } from './product.entity';
 
-@Entity({ name: 'product-prices' })
-export class ProductPriceEntity {
+@Entity({ name: 'product-sales' })
+export class ProductSaleEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,12 +17,12 @@ export class ProductPriceEntity {
   @ManyToOne(() => ProductEntity, {
     onDelete: 'CASCADE',
     persistence: false,
-    cascade: true
+    cascade: true,
   })
   product: ProductEntity;
 
   @PriceColumn()
-  price: number;
+  sale: number;
 
   @Column()
   quantity: number;

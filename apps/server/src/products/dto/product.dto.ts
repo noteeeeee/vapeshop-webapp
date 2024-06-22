@@ -2,7 +2,7 @@ import { Exclude, Expose, Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { BrandDto, CategoryDto } from '../../categories';
 import { ProductEntity } from '../entities';
-import { ProductPriceDto, UpdateProductPriceDto } from './product-price.dto';
+import { ProductSaleDto, UpdateProductPriceDto } from './product-sale.dto';
 import { ProductFilterDto, UpdateProductFilterDto } from './product-filter.dto';
 
 @Exclude()
@@ -49,13 +49,13 @@ export class ProductDto {
   filters: ProductFilterDto[];
 
   @Expose()
-  @Type(() => ProductPriceDto)
+  @Type(() => ProductSaleDto)
   @ApiProperty({
-    type: () => [ProductPriceDto],
+    type: () => [ProductSaleDto],
     description: 'The prices associated with the product',
     nullable: true,
   })
-  prices: ProductPriceDto[];
+  prices: ProductSaleDto[];
 
   @Expose()
   @ApiProperty({
@@ -139,7 +139,14 @@ export class CreateProductDto {
     description: 'The prices associated with the product',
     nullable: true,
   })
-  prices?: UpdateProductPriceDto[];
+  quantitySales?: UpdateProductPriceDto[];
+
+  @Expose()
+  @ApiProperty({
+    example: 120,
+    description: 'The price of the product',
+  })
+  price?: number;
 
   @Expose()
   @ApiProperty({

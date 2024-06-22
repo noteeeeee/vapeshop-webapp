@@ -19,6 +19,9 @@ import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ProductsModule } from './products/products.module';
 import { StorageModule } from './storage/storage.module';
+import { OrdersModule } from './orders/orders.module';
+import { CartModule } from './cart/cart.module';
+import { DeliveryModule } from './delivery/delivery.module';
 
 dayjs.locale('ru');
 dayjs.extend(localizedFormat);
@@ -59,6 +62,9 @@ const redisInstance = new RedisClientWithLogger({
     BotModule,
     CategoriesModule,
     ProductsModule,
+    OrdersModule,
+    CartModule,
+    DeliveryModule,
   ],
 })
 export class AppModule {}

@@ -7,6 +7,14 @@ import {
   CategoryEntity,
   CategoryFilterEntity,
 } from './categories';
+import { DeliveryEntity } from './delivery';
+import { CartEntity } from './cart';
+import { OrderEntity } from './orders';
+import {
+  ProductEntity,
+  ProductFilterEntity,
+  ProductSaleEntity,
+} from './products';
 
 export default new DataSource({
   type: EnvConfig.DATABASE_TYPE as any,
@@ -21,6 +29,12 @@ export default new DataSource({
     BrandEntity,
     CategoryEntity,
     CategoryFilterEntity,
+    ProductEntity,
+    ProductSaleEntity,
+    ProductFilterEntity,
+    DeliveryEntity,
+    CartEntity,
+    OrderEntity,
   ],
   synchronize: EnvConfig.DEVELOPMENT,
   extra: {

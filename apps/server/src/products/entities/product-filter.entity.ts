@@ -13,8 +13,7 @@ import { CategoryFilterEntity } from '../../categories';
 
 @Entity({ name: 'product-filters' })
 export class ProductFilterEntity {
-  @RelationId((filter: ProductFilterEntity) => filter.product)
-  @PrimaryColumn()
+  @PrimaryColumn({ name: "productID" })
   productID: number;
 
   @JoinColumn({ name: 'productID' })

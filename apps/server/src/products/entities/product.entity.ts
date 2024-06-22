@@ -10,9 +10,9 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { BrandEntity, CategoryEntity } from '../../categories';
-import { VirtualColumn } from '../../common';
+import { PriceColumn, VirtualColumn } from '../../common';
 import { ProductFilterEntity } from './product-filter.entity';
-import {ProductPriceEntity} from "./product-price.entity";
+import { ProductSaleEntity } from './product-sale.entity';
 
 @Entity({ name: 'products' })
 export class ProductEntity {
@@ -49,23 +49,24 @@ export class ProductEntity {
   brand: BrandEntity;
 
   @OneToMany(() => ProductFilterEntity, (filter) => filter.product, {
-    orphanedRowAction: "delete",
+    orphanedRowAction: 'delete',
     persistence: false,
-    cascade: true,
     nullable: true,
   })
   filters: ProductFilterEntity[];
 
-  @OneToMany(() => ProductPriceEntity, (price) => price.product, {
-    orphanedRowAction: "delete",
+  @OneToMany(() => ProductSaleEntity, (price) => price.product, {
+    orphanedRowAction: 'delete',
     persistence: false,
-    cascade: true,
     nullable: true,
   })
-  prices: ProductPriceEntity[];
+  quantitySales: ProductSaleEntity[];
 
   @VirtualColumn()
   purchased: number;
+
+  @PriceColumn()
+  price: number;
 
   @Column({ nullable: true })
   sale: number;

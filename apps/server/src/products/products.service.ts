@@ -3,10 +3,24 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { runOnTransactionRollback, Transactional } from 'typeorm-transactional';
 import { StorageService } from '../storage';
-import _, { omit } from 'lodash';
+import { omit } from 'lodash';
 import { ProductEntity } from './entities';
 import { CategoriesService } from '../categories/services';
 import { CreateProductDto, UpdateProductDto } from './dto';
+import { OrderStatus } from '../orders/order.types';
+import { CartEntity } from '../cart';
+import { FilterOperator, PaginateConfig, PaginateQuery } from 'nestjs-paginate';
+import { paginate } from '../common';
+
+export const paginateConfig: PaginateConfig<ProductEntity> = {
+  sortableColumns: ['id', 'name', 'price', 'sale', 'created', 'purchased'],
+  defaultSortBy: [['id', 'DESC']],
+  searchableColumns: ['name', 'id'],
+  defaultLimit: 50,
+  filterableColumns: {
+    price: [FilterOperator.BTW],
+  },
+};
 
 @Injectable()
 export class ProductsService {
@@ -16,6 +30,53 @@ export class ProductsService {
     private categoriesService: CategoriesService,
     private storageService: StorageService,
   ) {}
+
+  findOne(id: number) {
+    return this.productsRepo
+      .createQueryBuilder('e')
+      .leftJoinAndSelect('e.category', 'category')
+      .leftJoinAndSelect('e.brand', 'brand')
+      .leftJoinAndSelect('e.brand', 'brand')
+      .leftJoinAndSelect('e.quantitySales', 'quantitySales')
+      .leftJoinAndSelect('e.filters', 'filters')
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('COUNT(cart.uuid)', 'purchased')
+          .from(CartEntity, 'cart')
+          .leftJoin('cart.order', 'order')
+          .where('cart.productID = e.id AND order.status IN(:...statuses)', {
+            statuses: [
+              OrderStatus.COMPLETED,
+              OrderStatus.IN_DELIVERY,
+              OrderStatus.PROCESSING,
+            ],
+          });
+      }, 'purchased')
+      .where('e.id = :id', { id })
+      .getOneWithVirtualColumn();
+  }
+
+  async paginate(query: PaginateQuery) {
+    const repo = this.productsRepo
+      .createQueryBuilder('e')
+      .leftJoinAndSelect('e.category', 'category')
+      .leftJoinAndSelect('category.parent', 'parentCategory')
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('COUNT(cart.uuid)', 'purchased')
+          .from(CartEntity, 'cart')
+          .leftJoin('cart.order', 'order')
+          .where('cart.productID = e.id AND order.status IN(:...statuses)', {
+            statuses: [
+              OrderStatus.COMPLETED,
+              OrderStatus.IN_DELIVERY,
+              OrderStatus.PROCESSING,
+            ],
+          });
+      }, 'purchased');
+
+    return paginate(query, repo, paginateConfig);
+  }
 
   @Transactional()
   async create(data: CreateProductDto) {
