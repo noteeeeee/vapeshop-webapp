@@ -1,7 +1,6 @@
-export function useDebouncedFunction<T extends (...args: any[]) => ReturnType<T>>(
-    func: T,
-    delay: number = 300
-) {
+export function useDebouncedFunction<
+  T extends (...args: any[]) => ReturnType<T>,
+>(func: T, delay: number = 300) {
   let timeoutId: NodeJS.Timeout | null = null;
   const pending = ref(false);
   const isLoading = ref(false);
@@ -37,5 +36,5 @@ export function useDebouncedFunction<T extends (...args: any[]) => ReturnType<T>
     }
   };
 
-  return {debouncedFunction, pending, stopDebounce, startDebounce};
+  return { debouncedFunction, pending, stopDebounce, startDebounce };
 }

@@ -1,9 +1,17 @@
 import { Exclude, Expose, Type } from 'class-transformer';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { BrandDto, CategoryDto } from '../../categories';
 import { ProductEntity } from '../entities';
 import { ProductSaleDto, UpdateProductPriceDto } from './product-sale.dto';
 import { ProductFilterDto, UpdateProductFilterDto } from './product-filter.dto';
+import {
+  IsArray,
+  IsInt,
+  IsOptional,
+  IsPositive,
+  IsString,
+  Min,
+} from 'class-validator';
 
 @Exclude()
 export class ProductDto {
@@ -81,6 +89,13 @@ export class ProductDto {
 
   @Expose()
   @ApiProperty({
+    example: 10,
+    description: 'The number of items in stock',
+  })
+  inStock: number;
+
+  @Expose()
+  @ApiProperty({
     example: '2024-06-19T12:34:56.789Z',
     description: 'The date when the product was last updated',
   })
@@ -101,6 +116,7 @@ export class ProductDto {
 @Exclude()
 export class CreateProductDto {
   @Expose()
+  @IsString()
   @ApiProperty({
     example: 'Product Name',
     description: 'The name of the product',
@@ -108,36 +124,40 @@ export class CreateProductDto {
   name: string;
 
   @Expose()
-  @ApiProperty({
+  @IsInt()
+  @IsOptional()
+  @ApiPropertyOptional({
     example: 1,
     description: 'The ID of the category the product belongs to',
-    nullable: true,
   })
   categoryID?: number;
 
   @Expose()
-  @ApiProperty({
+  @IsInt()
+  @IsOptional()
+  @ApiPropertyOptional({
     example: 1,
     description: 'The ID of the brand the product belongs to',
-    nullable: true,
   })
   brandID?: number;
 
   @Expose()
   @Type(() => UpdateProductFilterDto)
-  @ApiProperty({
+  @IsOptional()
+  @IsArray()
+  @ApiPropertyOptional({
     type: () => [UpdateProductFilterDto],
     description: 'The filters associated with the product',
-    nullable: true,
   })
   filters?: UpdateProductFilterDto[];
 
   @Expose()
   @Type(() => UpdateProductPriceDto)
-  @ApiProperty({
+  @IsOptional()
+  @IsArray()
+  @ApiPropertyOptional({
     type: () => [UpdateProductPriceDto],
     description: 'The prices associated with the product',
-    nullable: true,
   })
   quantitySales?: UpdateProductPriceDto[];
 
@@ -149,80 +169,112 @@ export class CreateProductDto {
   price?: number;
 
   @Expose()
-  @ApiProperty({
+  @IsInt()
+  @IsOptional()
+  @ApiPropertyOptional({
     example: 20,
     description: 'The sale percentage of the product',
-    nullable: true,
   })
   sale?: number;
 
   @Expose()
-  @ApiProperty({ description: 'The image URL of the product', nullable: true })
+  @ApiPropertyOptional({ description: 'The image URL of the product' })
   image?: string;
+
+  @Expose()
+  @IsInt()
+  @ApiPropertyOptional({
+    example: 10,
+    description: 'The number of items in stock',
+  })
+  inStock: number;
 }
 
 @Exclude()
 export class UpdateProductDto {
   @Expose()
-  @ApiProperty({
+  @IsOptional()
+  @IsString()
+  @ApiPropertyOptional({
     example: 'Product Name',
     description: 'The name of the product',
-    required: false,
   })
   name?: string;
 
   @Expose()
-  @ApiProperty({
+  @IsOptional()
+  @IsInt()
+  @ApiPropertyOptional({
     example: 1,
     description: 'The ID of the category the product belongs to',
-    nullable: true,
-    required: false,
   })
   categoryID?: number;
 
   @Expose()
-  @ApiProperty({
+  @IsOptional()
+  @IsString()
+  @ApiPropertyOptional({
     example: 1,
     description: 'The ID of the brand the product belongs to',
-    nullable: true,
-    required: false,
   })
   brandID?: number;
 
   @Expose()
   @Type(() => UpdateProductFilterDto)
-  @ApiProperty({
+  @IsOptional()
+  @IsArray()
+  @ApiPropertyOptional({
     type: () => [UpdateProductFilterDto],
     description: 'The filters associated with the product',
-    nullable: true,
-    required: false,
   })
   filters?: UpdateProductFilterDto[];
 
   @Expose()
   @Type(() => UpdateProductPriceDto)
-  @ApiProperty({
+  @IsOptional()
+  @IsArray()
+  @ApiPropertyOptional({
     type: () => [UpdateProductPriceDto],
     description: 'The prices associated with the product',
-    nullable: true,
-    required: false,
   })
   prices?: UpdateProductPriceDto[];
 
   @Expose()
-  @ApiProperty({
+  @IsOptional()
+  @IsInt()
+  @ApiPropertyOptional({
     example: 20,
     description: 'The sale percentage of the product',
-    nullable: true,
-    required: false,
   })
   sale?: number;
 
   @Expose()
-  @ApiProperty({
+  @IsOptional()
+  @IsString()
+  @ApiPropertyOptional({
     description: 'The image URL of the product',
     nullable: true,
     required: false,
   })
   image?: string;
+
+  @Expose()
+  @IsInt()
+  @ApiPropertyOptional({
+    example: 10,
+    description: 'The number of items in stock',
+  })
+  inStock: number;
+}
+
+@Exclude()
+export class UpdateStockDto {
+  @Expose()
+  @ApiProperty({
+    example: 10,
+    description: 'The quantity to increment or decrement',
+  })
+  @IsInt()
+  @Min(1)
+  quantity: number;
 }

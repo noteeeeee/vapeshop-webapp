@@ -1,15 +1,12 @@
-import {Controller, Get, Post} from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 
 @Controller('delivery')
 export class DeliveryController {
-  constructor() {
-  }
+  constructor() {}
 
   @Get()
-  findAll() {
-  }
+  findAll() {}
 
   @Post()
-  create() {
-  }
+  create() {}
 }

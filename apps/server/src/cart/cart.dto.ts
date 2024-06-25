@@ -1,5 +1,5 @@
 import { Exclude, Expose, Transform, Type } from 'class-transformer';
-import {IsInt, IsUUID, Max, Min} from 'class-validator';
+import { IsInt, IsUUID, Max, Min } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ProductDto } from '../products';
 import { CartEntity } from './cart.entity';

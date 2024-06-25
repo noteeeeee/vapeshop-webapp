@@ -21,7 +21,12 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { IsAdminGuard } from '../admin';
-import { CreateProductDto, ProductDto, UpdateProductDto } from './dto';
+import {
+  CreateProductDto,
+  ProductDto,
+  UpdateProductDto,
+  UpdateStockDto,
+} from './dto';
 import { Paginate, PaginatedSwaggerDocs, PaginateQuery } from 'nestjs-paginate';
 
 @ApiTags('Products')
@@ -86,5 +91,37 @@ export class ProductsController {
   @ApiForbiddenResponse()
   async delete(@Param('id') id: number): Promise<boolean> {
     return this.productsService.delete(id);
+  }
+
+  @Patch(':id/increment')
+  @UseGuards(IsAdminGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Increment stock of a product' })
+  @ApiParam({ name: 'id', description: 'Product ID', type: Number })
+  @ApiBody({ type: UpdateStockDto })
+  @ApiOkResponse({
+    description: 'The stock has been successfully incremented',
+    type: ProductDto,
+  })
+  @ApiUnauthorizedResponse()
+  @ApiForbiddenResponse()
+  async increment(@Param('id') id: number, @Body() data: UpdateStockDto) {
+    return this.productsService.inStockIncrement(id, data.quantity);
+  }
+
+  @Patch(':id/decrement')
+  @UseGuards(IsAdminGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Decrement stock of a product' })
+  @ApiParam({ name: 'id', description: 'Product ID', type: Number })
+  @ApiBody({ type: UpdateStockDto })
+  @ApiOkResponse({
+    description: 'The stock has been successfully decremented',
+    type: ProductDto,
+  })
+  @ApiUnauthorizedResponse()
+  @ApiForbiddenResponse()
+  async decrement(@Param('id') id: number, @Body() data: UpdateStockDto) {
+    return this.productsService.inStockDecrement(id, data.quantity);
   }
 }

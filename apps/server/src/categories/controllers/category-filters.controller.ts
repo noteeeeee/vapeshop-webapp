@@ -6,7 +6,8 @@ import {
   Param,
   Delete,
   Patch,
-  UseGuards, ParseIntPipe,
+  UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -20,14 +21,14 @@ import {
 import { CategoryFiltersService } from '../services';
 import { ApiExcludeEndpoint, TransformResponse } from '../../common';
 import { IsAdminGuard } from '../../admin';
-import {CategoryFilterDto, CreateFilterDto, UpdateFilterDto} from "../dto";
+import { CategoryFilterDto, CreateFilterDto, UpdateFilterDto } from '../dto';
 
 @ApiTags('Filters')
 @Controller('filters')
 export class CategoryFiltersController {
   constructor(private readonly filtersService: CategoryFiltersService) {}
 
-  @Get(":categoryID")
+  @Get(':categoryID')
   @TransformResponse(CategoryFilterDto)
   @ApiOperation({ summary: 'Get all filters for category' })
   @ApiOkResponse({
@@ -35,7 +36,7 @@ export class CategoryFiltersController {
     type: [CategoryFilterDto],
   })
   @ApiParam({ name: 'id', description: 'Category ID', type: Number })
-  async findAll(@Param("categoryID", ParseIntPipe) categoryID: number) {
+  async findAll(@Param('categoryID', ParseIntPipe) categoryID: number) {
     return this.filtersService.find(categoryID);
   }
 
@@ -68,7 +69,10 @@ export class CategoryFiltersController {
   })
   @ApiUnauthorizedResponse()
   @ApiForbiddenResponse()
-  async update(@Param('id', ParseIntPipe) id: number, @Body() data: UpdateFilterDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() data: UpdateFilterDto,
+  ) {
     return this.filtersService.update(id, data);
   }
 

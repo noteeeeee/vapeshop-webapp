@@ -33,9 +33,14 @@ export const EnvConfig = {
   TELEGRAM_LOGS_CHANNEL: env.get("TELEGRAM_LOGS_CHANNEL").required().asInt(),
   TELEGRAM_WEBHOOK_PATH: env.get("TELEGRAM_WEBHOOK_PATH").asString(),
 
-  TELEGRAM_THROTTLER_TTL: env.get('THROTTLER_TELEGRAM_TTL').default(5000).asInt(),
-  TELEGRAM_THROTTLER_LIMIT: env.get('THROTTLER_TELEGRAM_LIMIT').default(10).asInt(),
-
+  TELEGRAM_THROTTLER_TTL: env
+    .get("THROTTLER_TELEGRAM_TTL")
+    .default(5000)
+    .asInt(),
+  TELEGRAM_THROTTLER_LIMIT: env
+    .get("THROTTLER_TELEGRAM_LIMIT")
+    .default(10)
+    .asInt(),
 
   THROTTLER_TTL: env.get("THROTTLER_TTL").default(1000).asInt(),
   THROTTLER_LIMIT: env.get("THROTTLER_LIMIT").default(5).asInt(),

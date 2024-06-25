@@ -6,9 +6,9 @@ export class EncryptionTransformer implements ValueTransformer {
   private encrypt(text: string): string {
     const iv = crypto.randomBytes(16);
     const cipher = crypto.createCipheriv(
-        'aes-256-cbc',
-        Buffer.from(EnvConfig.ENCRYPTION_KEY),
-        iv,
+      'aes-256-cbc',
+      Buffer.from(EnvConfig.ENCRYPTION_KEY),
+      iv,
     );
     let encrypted = cipher.update(text);
     encrypted = Buffer.concat([encrypted, cipher.final()]);
@@ -20,9 +20,9 @@ export class EncryptionTransformer implements ValueTransformer {
     const iv = Buffer.from(textParts.shift(), 'hex');
     const encryptedText = Buffer.from(textParts.join(':'), 'hex');
     const decipher = crypto.createDecipheriv(
-        'aes-256-cbc',
-        Buffer.from(EnvConfig.ENCRYPTION_KEY),
-        iv,
+      'aes-256-cbc',
+      Buffer.from(EnvConfig.ENCRYPTION_KEY),
+      iv,
     );
     let decrypted = decipher.update(encryptedText);
     decrypted = Buffer.concat([decrypted, decipher.final()]);

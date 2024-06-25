@@ -7,7 +7,7 @@ import {
   applyDecorators,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import {CartService} from "../cart.service";
+import { CartService } from '../cart.service';
 
 @Injectable()
 export class MaxCartItemsGuard implements CanActivate {
@@ -43,7 +43,5 @@ export class MaxCartItemsGuard implements CanActivate {
 }
 
 export const MaxCartItems = (maxCartItems: number) => {
-  return applyDecorators(
-    SetMetadata('maxCartItems', maxCartItems)
-  );
+  return applyDecorators(SetMetadata('maxCartItems', maxCartItems));
 };

@@ -1,8 +1,8 @@
 import { Exclude, Expose } from 'class-transformer';
-import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { DeliveryEntity } from '../entities';
-import {DeliveryMethod} from "../delivery.types";
-import {IsEnum, IsOptional, IsString} from "class-validator";
+import { DeliveryMethod } from '../delivery.types';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 
 @Exclude()
 export class DeliveryDto {

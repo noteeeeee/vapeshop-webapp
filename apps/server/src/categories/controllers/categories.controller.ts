@@ -6,7 +6,8 @@ import {
   Param,
   Delete,
   Patch,
-  UseGuards, ParseIntPipe,
+  UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -67,7 +68,10 @@ export class CategoriesController {
   })
   @ApiUnauthorizedResponse()
   @ApiForbiddenResponse()
-  async update(@Param('id', ParseIntPipe) id: number, @Body() data: UpdateCategoryDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() data: UpdateCategoryDto,
+  ) {
     return this.categoriesService.update(id, data);
   }
 

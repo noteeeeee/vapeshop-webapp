@@ -11,13 +11,13 @@ import {
 import { ProductEntity } from '../products';
 import { UserEntity } from '../users';
 import { PriceColumn } from '../common';
-import {OrderEntity} from "../orders";
+import { OrderEntity } from '../orders';
 
 @Entity({
   orderBy: {
     created: 'ASC',
   },
-  name: "cart"
+  name: 'cart',
 })
 export class CartEntity {
   @PrimaryGeneratedColumn('uuid')

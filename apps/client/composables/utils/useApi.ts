@@ -1,5 +1,10 @@
 import { AxiosError } from "axios";
-import {type QueryFunction, useQuery, UseQueryOptions, type UseQueryReturnType} from "@tanstack/vue-query";
+import {
+  type QueryFunction,
+  useQuery,
+  UseQueryOptions,
+  type UseQueryReturnType,
+} from "@tanstack/vue-query";
 
 export type ApiConfig = {
   immediately?: boolean;
@@ -22,7 +27,7 @@ export function useApi<T>(
     debounceOptions: {
       enabled: true,
       delay: 300,
-    }
+    },
   },
 ): UseQueryReturnType<T, AxiosError> {
   const { debouncedFunction } = useDebouncedFunction(

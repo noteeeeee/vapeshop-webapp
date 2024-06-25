@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import { UserEntity } from './user.entity';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 
 @Exclude()
 export class UserDto {
@@ -57,6 +58,14 @@ export class UserDto {
 
   @Expose()
   @ApiProperty({
+    example: 100,
+    description: 'The referral balance of the user',
+    default: 0,
+  })
+  referralBalance: number;
+
+  @Expose()
+  @ApiProperty({
     example: 10,
     description: 'The discount for the user',
     required: false,
@@ -78,6 +87,65 @@ export class UserDto {
   created: Date;
 
   constructor(partial: Partial<UserEntity>) {
+    Object.assign(this, partial);
+  }
+}
+
+@Exclude()
+export class UserUpdateDto {
+  @Expose()
+  @ApiProperty({ description: 'Flag indicating if the user is banned' })
+  @IsBoolean()
+  @IsOptional()
+  isBanned: boolean;
+
+  @Expose()
+  @ApiProperty({
+    description: 'Flag indicating if the user is an administrator',
+  })
+  @IsBoolean()
+  @IsOptional()
+  isAdmin: boolean;
+
+  @Expose()
+  @ApiProperty({ description: 'The balance of the user' })
+  @IsNumber()
+  @IsOptional()
+  balance: number;
+
+  @Expose()
+  @ApiProperty({ description: 'The referral balance of the user' })
+  @IsNumber()
+  @IsOptional()
+  referralBalance: number;
+}
+
+@Exclude()
+export class UsersStats {
+  @Expose()
+  @ApiProperty()
+  @Transform(({ value }) => Number(value))
+  today: number;
+
+  @Expose()
+  @ApiProperty()
+  @Transform(({ value }) => Number(value))
+  total: number;
+
+  constructor(partial: Partial<any>) {
+    Object.assign(this, partial);
+  }
+}
+
+@Exclude()
+export class ReferralStatsDto {
+  @Expose()
+  @ApiProperty({
+    description: 'Number of referrals associated with the partner',
+  })
+  referralCount: number;
+
+  constructor(partial: any) {
     Object.assign(this, partial);
   }
 }

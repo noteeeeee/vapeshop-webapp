@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import {BrandEntity} from "../entities";
-import {CreateBrandDto, UpdateBrandDto} from "../dto";
+import { BrandEntity } from '../entities';
+import { CreateBrandDto, UpdateBrandDto } from '../dto';
 
 @Injectable()
 export class BrandsService {

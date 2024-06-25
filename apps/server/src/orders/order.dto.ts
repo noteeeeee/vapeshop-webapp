@@ -103,12 +103,24 @@ export class OrderDto {
   created: Date;
 
   @Expose()
-  @ApiProperty({ description: 'The date when the order was expired and deleted' })
+  @ApiProperty({
+    description: 'The date when the order was expired and deleted',
+  })
   expire: Date;
 
   constructor(partial: Partial<OrderEntity>) {
     Object.assign(this, partial);
   }
+}
+
+@Exclude()
+export class OrderCreateResponseDto extends OrderDto {
+  @Expose()
+  @ApiProperty({
+    description:
+      'Indicates whether some products were excluded from the order due to insufficient stock.',
+  })
+  productsExcluded: boolean;
 }
 
 @Exclude()
@@ -151,6 +163,16 @@ export class OrderStatsDto {
   @ApiProperty()
   @Transform(({ value }) => Number(value))
   soldItemsToday: number;
+
+  @Expose()
+  @ApiProperty()
+  @Transform(({ value }) => Number(value))
+  profitTotal: number;
+
+  @Expose()
+  @ApiProperty()
+  @Transform(({ value }) => Number(value))
+  soldItemsTotal: number;
 
   constructor(partial: Partial<any>) {
     Object.assign(this, partial);

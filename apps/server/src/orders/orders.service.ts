@@ -6,15 +6,15 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import {
-  InjectDayjs,
-  dayjs,
-  paginate,
-  CursorPaginateQuery,
   cursorPaginate,
   CursorPaginatedConfig,
+  CursorPaginateQuery,
+  dayjs,
+  InjectDayjs,
+  paginate,
 } from '../common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IsNull, LessThan, Repository } from 'typeorm';
+import { LessThan, Repository } from 'typeorm';
 import { CartService } from '../cart/cart.service';
 import { DeliveryService } from '../delivery/delivery.service';
 import {
@@ -28,6 +28,12 @@ import { OrderStatus } from './order.types';
 import _ from 'lodash';
 import { CartEntity } from '../cart';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { UserEntity } from '../users';
+import { ProductsService } from '../products/products.service';
+import { Transactional } from 'typeorm-transactional';
+import { UsersService } from '../users/users.service';
+import { AuditService } from '../audit/audit.service';
+import { AuditType } from '../audit';
 
 export const paginateConfig: PaginateConfig<OrderEntity> = {
   sortableColumns: ['id', 'created', 'updated'],
@@ -63,29 +69,61 @@ export class OrdersService {
     private ordersRepo: Repository<OrderEntity>,
     private cartService: CartService,
     private deliveryService: DeliveryService,
+    private productsService: ProductsService,
+    private usersService: UsersService,
+    private auditService: AuditService,
   ) {}
 
-  async create(userID: number, data: OrderCreateStatusDto) {
-    const items = await this.cartService.find(userID, data.cartUUIDs);
+  @Transactional()
+  async create(user: UserEntity, data: OrderCreateStatusDto) {
+    const items = await this.cartService.find(user.id, data.cartUUIDs);
     if (!items?.length) throw new BadRequestException('No items in your cart');
+
+    for (const item of items) {
+      if (
+        item.quantity &&
+        item.product.inStock &&
+        item.product.inStock == item.quantity
+      ) {
+        await this.auditService.create(
+          AuditType.PRODUCT_OUT_OF_STOCK,
+          item.product,
+        );
+      }
+    }
+
+    const decrementOperations = items.map(({ product, quantity }) => ({
+      id: product.id,
+      quantity,
+    }));
+    const inStockDecrementProducts =
+      await this.productsService.inStockDecrementBulk(decrementOperations);
+    if (!inStockDecrementProducts?.length)
+      throw new BadRequestException('No items in your cart');
 
     const { id: orderID } = await this.ordersRepo.save({
       deliveryData: instanceToPlain(new DeliveryDto(data)),
-      userID,
+      userID: user.id,
       status: OrderStatus.AWAITING_PAYMENT,
     });
     await this.cartService.updateCartItemsPricesAndSales(
+      user,
       orderID,
       ..._.map(items, 'uuid'),
     );
 
     if (data.save)
       await this.deliveryService.upsert(
-        userID,
+        user.id,
         instanceToInstance(new DeliveryUpsertDto(data)),
       );
 
-    return await this.findOne(orderID, userID);
+    const order = await this.findOne(orderID, user.id);
+    await this.auditService.create(AuditType.ORDER_CREATED, order);
+
+    return Object.assign(order, {
+      productsExcluded: inStockDecrementProducts.length < items.length,
+    });
   }
 
   async findOne(id: number, userID?: number) {
@@ -184,13 +222,14 @@ export class OrdersService {
     return cursorPaginate(query, qb, cursorPaginateConfig);
   }
 
+  @Transactional()
   async updateStatus(id: number, data: OrderUpdateDto, userID?: number) {
     const order = await this.ordersRepo.findOne({
       where: {
         id,
         userID,
       },
-      relations: ['items'],
+      relations: ['items', 'items.product'],
     });
 
     if (data.moveToCart && userID && data.status == OrderStatus.CANCELED) {
@@ -198,11 +237,24 @@ export class OrdersService {
       await this.ordersRepo.delete({ id });
     } else if (!userID) {
       await this.ordersRepo.update({ id }, { status: data.status });
+      await this.auditService.create(AuditType.ORDER_STATUS_UPDATED, order, {
+        oldStatus: order.status,
+        newStatus: data.status,
+      });
+    }
+
+    if (order.status == OrderStatus.CANCELED) {
+      const incrementOperations = _.map(order.items, (item) => ({
+        id: item.product.id,
+        quantity: item.quantity,
+      }));
+      await this.productsService.inStockIncrementBulk(incrementOperations);
     }
 
     return (await this.findOne(id, userID)) || order;
   }
 
+  @Transactional()
   async cancelByUser(userID: number, id: number, moveToCart?: boolean) {
     const order = await this.ordersRepo.findOne({
       where: {
@@ -210,7 +262,7 @@ export class OrdersService {
         userID,
         status: OrderStatus.AWAITING_PAYMENT,
       },
-      relations: ['items'],
+      relations: ['items', 'items.product'],
     });
 
     if (!order) throw new NotFoundException();
@@ -221,6 +273,42 @@ export class OrdersService {
     );
   }
 
+  @Transactional()
+  async payByUser(user: UserEntity, id: number) {
+    const order = await this.findOne(id, user.id);
+    if (!order || order.status != OrderStatus.AWAITING_PAYMENT)
+      throw new NotFoundException();
+
+    if (order.totalPriceWithSale >= user.balance + user.referralBalance)
+      throw new BadRequestException();
+
+    let remainingAmount = order.totalPriceWithSale;
+    if (user.referralBalance > 0) {
+      const referralDeduction = Math.min(user.referralBalance, remainingAmount);
+      await this.usersService.decrementReferralBalance(
+        user.id,
+        referralDeduction,
+      );
+      remainingAmount -= referralDeduction;
+    }
+
+    if (remainingAmount > 0) {
+      await this.usersService.decrementBalance(user.id, remainingAmount);
+      await this.auditService.create(AuditType.BALANCE_DECREMENT, user, {
+        oldBalance: user.id,
+        newBalance: user.balance - remainingAmount,
+      });
+    }
+
+    await this.ordersRepo.update({ id }, { status: OrderStatus.PROCESSING });
+    await this.auditService.create(AuditType.ORDER_STATUS_UPDATED, order, {
+      oldStatus: order.status,
+      newStatus: OrderStatus.PROCESSING,
+    });
+    return Object.assign(order, { status: OrderStatus.PROCESSING });
+  }
+
+  @Transactional()
   async delete(id: number, userID?: number) {
     const order = await this.ordersRepo.findOne({
       where: {
@@ -231,6 +319,14 @@ export class OrdersService {
     });
     if (!order) throw new NotFoundException();
 
+    if (order.status !== OrderStatus.COMPLETED) {
+      const incrementOperations = _.map(order.items, (item) => ({
+        id: item.product.id,
+        quantity: item.quantity,
+      }));
+      await this.productsService.inStockIncrementBulk(incrementOperations);
+    }
+
     const result = await this.ordersRepo.delete({ id });
     return result.affected > 0;
   }
@@ -240,22 +336,33 @@ export class OrdersService {
     const twentyFourHoursAgo = this.dayjs().subtract(3, 'hour').toDate();
     const currentDate = this.dayjs().toDate();
 
-    const orders = await this.ordersRepo.find({
-      where: [
+    const orders = await this.ordersRepo
+      .createQueryBuilder('order')
+      .leftJoinAndSelect('order.items', 'items')
+      .leftJoinAndSelect('items.product', 'product')
+      .where(
+        'order.status = :status1 AND order.created < :twentyFourHoursAgo AND order.expire IS NULL',
         {
-          status: OrderStatus.AWAITING_PAYMENT,
-          created: LessThan(twentyFourHoursAgo),
-          expire: IsNull(),
+          status1: OrderStatus.AWAITING_PAYMENT,
+          twentyFourHoursAgo,
         },
-        {
-          status: OrderStatus.AWAITING_PAYMENT,
-          expire: LessThan(currentDate),
-        },
-      ],
-      relations: ['items'],
-    });
+      )
+      .orWhere('order.status = :status2 AND order.expire < :currentDate', {
+        status2: OrderStatus.AWAITING_PAYMENT,
+        currentDate,
+      })
+      .getMany();
 
-    if (orders?.length) await this.ordersRepo.delete(_.map(orders, 'id'));
+    if (orders?.length) {
+      const incrementOperations = _.flatMap(orders, (order) =>
+        _.map(order.items, (item) => ({
+          id: item.product.id,
+          quantity: item.quantity,
+        })),
+      );
+      await this.productsService.inStockIncrementBulk(incrementOperations);
+      await this.ordersRepo.delete(_.map(orders, 'id'));
+    }
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
@@ -270,6 +377,47 @@ export class OrdersService {
     });
 
     if (orders?.length) await this.ordersRepo.delete(_.map(orders, 'id'));
+  }
+
+  async getRevenueForLast30Days(): Promise<RevenueByDayDto[]> {
+    const startDate = this.dayjs().subtract(29, 'days').toDate();
+
+    const qb = this.ordersRepo
+      .createQueryBuilder('e')
+      .leftJoin(
+        CartEntity,
+        'cart',
+        'DATE_FORMAT(cart.created, "%Y-%m-%d") = DATE_FORMAT(e.created, "%Y-%m-%d") AND cart.orderID = e.id',
+      )
+      .select("DATE_FORMAT(e.created, '%Y-%m-%d')", 'created')
+      .addSelect(
+        'SUM(cart.price * cart.quantity * (1 - COALESCE(cart.sale, 0) / 100))',
+        'revenue',
+      )
+      .where('e.created >= :startDate', { startDate })
+      .andWhere('e.status IN(:...statuses)', {
+        statuses: [
+          OrderStatus.IN_DELIVERY,
+          OrderStatus.PROCESSING,
+          OrderStatus.COMPLETED,
+        ],
+      })
+      .groupBy('created')
+      .orderBy('created', 'ASC');
+
+    const result = await qb.getRawMany();
+
+    const filledData = _.keyBy(result, 'created');
+    const days = _.map(Array.from({ length: 30 }), (_, index) =>
+      this.dayjs()
+        .subtract(29 - index, 'days')
+        .format('YYYY-MM-DD'),
+    );
+
+    return days.map((day) => ({
+      created: day,
+      revenue: _.get(filledData, `${day}.revenue`, 0),
+    }));
   }
 
   async getRevenueForLast12Months(): Promise<RevenueByDayDto[]> {
@@ -313,10 +461,15 @@ export class OrdersService {
     }));
   }
 
-  async getStats() {
+  async getStats(userID?: number) {
     const startDate = this.dayjs().startOf('day').toDate();
+    const statusConditions = [
+      OrderStatus.IN_DELIVERY,
+      OrderStatus.PROCESSING,
+      OrderStatus.COMPLETED,
+    ];
 
-    return this.ordersRepo
+    const todayStats = await this.ordersRepo
       .createQueryBuilder('e')
       .leftJoin(
         CartEntity,
@@ -330,13 +483,28 @@ export class OrdersService {
       )
       .addSelect('COUNT(cart.uuid)', 'soldItemsToday')
       .where('e.created >= :startDate', { startDate })
-      .andWhere('e.status IN(:...statuses)', {
-        statuses: [
-          OrderStatus.IN_DELIVERY,
-          OrderStatus.PROCESSING,
-          OrderStatus.COMPLETED,
-        ],
-      })
+      .andWhere('e.status IN(:...statuses)', { statuses: statusConditions })
+      .andWhere(userID ? 'e.userID = :userID' : '1=1', { userID })
       .getRawOne();
+
+    const totalStats = await this.ordersRepo
+      .createQueryBuilder('e')
+      .leftJoin(
+        CartEntity,
+        'cart',
+        'cart.created >= :startDate AND cart.orderID = e.id',
+      )
+      .select(
+        'COALESCE(SUM(cart.price * cart.quantity * (1 - COALESCE(cart.sale, 0) / 100)), 0)',
+        'profitTotal',
+      )
+      .addSelect('COUNT(cart.uuid)', 'soldItemsTotal')
+      .andWhere('e.status IN(:...statuses)', {
+        statuses: statusConditions,
+      })
+      .andWhere(userID ? 'e.userID = :userID' : '1=1', { userID })
+      .getRawOne();
+
+    return Object.assign(todayStats, totalStats);
   }
 }

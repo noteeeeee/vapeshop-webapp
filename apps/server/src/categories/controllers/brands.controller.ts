@@ -6,7 +6,8 @@ import {
   Param,
   Delete,
   Patch,
-  UseGuards, ParseIntPipe,
+  UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -67,7 +68,10 @@ export class BrandsController {
   })
   @ApiUnauthorizedResponse()
   @ApiForbiddenResponse()
-  async update(@Param('id', ParseIntPipe) id: number, @Body() data: UpdateBrandDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() data: UpdateBrandDto,
+  ) {
     return this.brandsService.update(id, data);
   }
 

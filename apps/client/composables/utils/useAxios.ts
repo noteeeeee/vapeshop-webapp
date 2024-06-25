@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useToast } from "~/components/ui/toast";
-import { useWebApp } from 'vue-tg'
+import { useWebApp } from "vue-tg";
 
 declare module "axios" {
   export interface AxiosInstance {
@@ -43,7 +43,7 @@ declare module "axios" {
 }
 
 export const useAxiosInstance = () => {
-  const { initData, initDataUnsafe} = useWebApp()
+  const { initData, initDataUnsafe } = useWebApp();
   const ready = ref(false);
   const { toast } = useToast();
   const runtimeConfig = useRuntimeConfig();
@@ -55,8 +55,8 @@ export const useAxiosInstance = () => {
   const instance = axios.create({
     baseURL,
     headers: {
-      "x-telegram-init-data": encodeURIComponent(initData)
-    }
+      "x-telegram-init-data": encodeURIComponent(initData),
+    },
   });
 
   instance.interceptors.response.use(

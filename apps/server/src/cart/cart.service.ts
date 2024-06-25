@@ -3,12 +3,12 @@ import { InjectDayjs, dayjs } from '../common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CartEntity } from './cart.entity';
 import { ProductsService } from '../products/products.service';
-import { StorageService } from '../storage';
 import { In, IsNull, Repository, DeepPartial, LessThan } from 'typeorm';
 import _ from 'lodash';
 import { CartCreateDto, CartUpdateDto } from './cart.dto';
 import { Transactional } from 'typeorm-transactional';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { UserEntity } from '../users';
 
 @Injectable()
 export class CartService {
@@ -23,7 +23,11 @@ export class CartService {
     return this.cartRepository.countBy({ userID, orderID: IsNull() });
   }
 
-  async updateCartItemsPricesAndSales(orderID: number, ...uuids: string[]) {
+  async updateCartItemsPricesAndSales(
+    user: UserEntity,
+    orderID: number,
+    ...uuids: string[]
+  ) {
     const cartItems = await this.cartRepository
       .createQueryBuilder('cart')
       .leftJoinAndSelect('cart.product', 'product')
@@ -38,10 +42,9 @@ export class CartService {
           .filter((qs) => totalQuantity >= qs.quantity)
           .maxBy('sale')?.sale || 0;
 
-      const applicableSale = Math.max(
-        cartItem.product.sale || 0,
-        maxQuantitySale,
-      );
+      const totalSale =
+        (cartItem.product.sale || 0) + maxQuantitySale + user.discount;
+      const applicableSale = Math.min(totalSale, 99);
 
       return {
         uuid: cartItem.uuid,

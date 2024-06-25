@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import {BrandEntity} from "../entities";
+import { BrandEntity } from '../entities';
 
 @Exclude()
 export class BrandDto {

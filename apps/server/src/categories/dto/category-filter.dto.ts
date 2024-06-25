@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
-import {CategoryFilterEntity} from "../entities";
-import {IsInt} from "class-validator";
+import { CategoryFilterEntity } from '../entities';
+import { IsInt } from 'class-validator';
 
 @Exclude()
 export class CategoryFilterDto {

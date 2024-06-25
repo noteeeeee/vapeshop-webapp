@@ -5,7 +5,7 @@ import { EnvConfig } from "@vapeshop-webapp/config";
 export default defineNuxtConfig({
   app: {
     head: {
-      script: [{ src: '/telegram-web-app.js', defer: true }],
+      script: [{ src: "/telegram-web-app.js", defer: true }],
     },
   },
   css: [
@@ -79,6 +79,6 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: false },
   devServer: {
-    host: "127.0.0.1"
-  }
+    host: "127.0.0.1",
+  },
 });

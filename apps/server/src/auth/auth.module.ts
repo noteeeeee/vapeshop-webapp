@@ -3,7 +3,7 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/users/users.module';
 import { WebAppStrategy } from './strategies';
 import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from '@nestjs/passport';
+import { HttpAuthGuard } from './http-auth.guard';
 
 @Module({
   imports: [UsersModule],
@@ -11,7 +11,7 @@ import { AuthGuard } from '@nestjs/passport';
     WebAppStrategy,
     {
       provide: APP_GUARD,
-      useClass: AuthGuard(['webapp']),
+      useClass: HttpAuthGuard,
     },
   ],
   controllers: [AuthController],

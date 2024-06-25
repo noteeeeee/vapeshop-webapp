@@ -31,57 +31,57 @@ export interface CursorPaginationQuery {
 }
 
 export type UseCursorPaginationReturnType<DataT> = UseInfiniteQueryReturnType<
-    DataT[],
-    AxiosError
+  DataT[],
+  AxiosError
 > & {
   setLimit: (
-      limit: number,
+    limit: number,
   ) =>
-      | Promise<
-      QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
-  >
-      | undefined;
+    | Promise<
+        QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
+      >
+    | undefined;
   setSort: (
-      field: string,
-      order: number,
+    field: string,
+    order: number,
   ) =>
-      | Promise<
-      QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
-  >
-      | undefined;
+    | Promise<
+        QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
+      >
+    | undefined;
   setFilters: (
-      filters: Record<string, any>,
+    filters: Record<string, any>,
   ) =>
-      | Promise<
-      QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
-  >
-      | undefined;
+    | Promise<
+        QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
+      >
+    | undefined;
   setSearch: (
-      search: string,
+    search: string,
   ) =>
-      | Promise<
-      QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
-  >
-      | undefined;
+    | Promise<
+        QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
+      >
+    | undefined;
 };
 
 export function useCursorPagination<DataT>(
-    queryFn: QueryFunction<any>,
-    queryKeys: string[],
-    paginationConfig: CursorPaginationQuery = {},
-    tanstackConfig?: UseInfiniteQueryOptions,
-    config?: ApiConfig & { vueRoute: boolean },
+  queryFn: QueryFunction<any>,
+  queryKeys: string[],
+  paginationConfig: CursorPaginationQuery = {},
+  tanstackConfig?: UseInfiniteQueryOptions,
+  config?: ApiConfig & { vueRoute: boolean },
 ): UseCursorPaginationReturnType<DataT> {
   config = deepmerge(
-      {
-        vueRoute: false,
-        immediately: true,
-        debounceOptions: {
-          enabled: true,
-          delay: 300,
-        },
+    {
+      vueRoute: false,
+      immediately: true,
+      debounceOptions: {
+        enabled: true,
+        delay: 300,
       },
-      config || {},
+    },
+    config || {},
   );
   const route = useRoute();
   const router = useRouter();
@@ -91,7 +91,8 @@ export function useCursorPagination<DataT>(
     if (routeSearch) paginationConfig.search = routeSearch;
   }
 
-  const paginationConfigReactive = reactive<CursorPaginationQuery>(paginationConfig);
+  const paginationConfigReactive =
+    reactive<CursorPaginationQuery>(paginationConfig);
   const initialData: CursorPaginatedData<DataT> = {
     data: [],
     meta: {
@@ -110,8 +111,8 @@ export function useCursorPagination<DataT>(
   };
 
   const { debouncedFunction } = useDebouncedFunction(
-      fetchData,
-      config?.debounceOptions?.delay,
+    fetchData,
+    config?.debounceOptions?.delay,
   );
 
   const queryKeyComputed = computed(() => {
@@ -121,9 +122,9 @@ export function useCursorPagination<DataT>(
   const tanstack = useInfiniteQuery({
     queryKey: queryKeyComputed,
     queryFn:
-        config.debounceOptions?.enabled && process.client
-            ? debouncedFunction
-            : fetchData,
+      config.debounceOptions?.enabled && process.client
+        ? debouncedFunction
+        : fetchData,
     getNextPageParam: (lastPage: any) => lastPage?.meta?.nextCursor,
     initialPageParam: undefined,
     enabled: config.immediately,
@@ -166,11 +167,11 @@ export function useCursorPagination<DataT>(
 
   // Обработка изменений фильтров и сортировки
   watch(
-      [
-        () => paginationConfigReactive.filters,
-        () => paginationConfigReactive.sortBy,
-      ],
-      () => tanstack.refetch(),
+    [
+      () => paginationConfigReactive.filters,
+      () => paginationConfigReactive.sortBy,
+    ],
+    () => tanstack.refetch(),
   );
 
   onServerPrefetch(async () => {
@@ -178,10 +179,10 @@ export function useCursorPagination<DataT>(
   });
 
   const data = computed(() =>
-      tanstack.data.value
-          ? // @ts-ignore
-          tanstack.data.value.pages.flatMap((d) => d.data)
-          : initialData,
+    tanstack.data.value
+      ? // @ts-ignore
+        tanstack.data.value.pages.flatMap((d) => d.data)
+      : initialData,
   );
 
   return {

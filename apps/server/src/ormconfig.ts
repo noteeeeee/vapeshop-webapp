@@ -15,6 +15,7 @@ import {
   ProductFilterEntity,
   ProductSaleEntity,
 } from './products';
+import { AuditEntity } from './audit';
 
 export default new DataSource({
   type: EnvConfig.DATABASE_TYPE as any,
@@ -35,6 +36,7 @@ export default new DataSource({
     DeliveryEntity,
     CartEntity,
     OrderEntity,
+    AuditEntity,
   ],
   synchronize: EnvConfig.DEVELOPMENT,
   extra: {

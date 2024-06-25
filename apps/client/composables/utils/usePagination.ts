@@ -50,70 +50,70 @@ export const transformFilters = (filters?: Record<string, string>) => {
 };
 
 export type UsePaginationReturnType<DataT> = UseQueryReturnType<
-    PaginatedData<DataT>,
-    AxiosError
+  PaginatedData<DataT>,
+  AxiosError
 > & {
   setPage: (
-      page: number,
+    page: number,
   ) =>
-      | Promise<
-      QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
-  >
-      | undefined;
+    | Promise<
+        QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
+      >
+    | undefined;
   setLimit: (
-      limit: number,
+    limit: number,
   ) =>
-      | Promise<
-      QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
-  >
-      | undefined;
+    | Promise<
+        QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
+      >
+    | undefined;
   setSort: (
-      field: string,
-      order: number,
+    field: string,
+    order: number,
   ) =>
-      | Promise<
-      QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
-  >
-      | undefined;
+    | Promise<
+        QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
+      >
+    | undefined;
   setFilters: (
-      filters: Record<string, any>,
+    filters: Record<string, any>,
   ) =>
-      | Promise<
-      QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
-  >
-      | undefined;
+    | Promise<
+        QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
+      >
+    | undefined;
   setSearch: (
-      search: string,
+    search: string,
   ) =>
-      | Promise<
-      QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
-  >
-      | undefined;
+    | Promise<
+        QueryObserverResult<PaginatedData<DataT>, AxiosError<unknown, any>>
+      >
+    | undefined;
 };
 
 export function usePagination<DataT>(
-    queryFn: QueryFunction<any>,
-    queryKey: string,
-    paginationConfig: PaginationQuery = {
-      page: 1,
-    },
-    tanstackConfig?: QueryOptions,
-    config?: ApiConfig & { vueRoute: boolean },
+  queryFn: QueryFunction<any>,
+  queryKey: string,
+  paginationConfig: PaginationQuery = {
+    page: 1,
+  },
+  tanstackConfig?: QueryOptions,
+  config?: ApiConfig & { vueRoute: boolean },
 ): UsePaginationReturnType<DataT> {
   config = deepmerge(
-      {
-        vueRoute: false,
-        immediately: true,
-        debounceOptions: {
-          enabled: true,
-          delay: 300,
-        },
-        cacheOptions: {
-          enabled: false,
-          cacheTime: 0,
-        },
+    {
+      vueRoute: false,
+      immediately: true,
+      debounceOptions: {
+        enabled: true,
+        delay: 300,
       },
-      config || {},
+      cacheOptions: {
+        enabled: false,
+        cacheTime: 0,
+      },
+    },
+    config || {},
   );
   const route = useRoute();
   const router = useRouter();
@@ -126,7 +126,7 @@ export function usePagination<DataT>(
     if (routePage) paginationConfig.page = routePage;
     if (routeFilters)
       paginationConfig.filters = Object.fromEntries(
-          new URLSearchParams(decodeURIComponent(route.query.filters)),
+        new URLSearchParams(decodeURIComponent(route.query.filters)),
       );
   }
 
@@ -151,8 +151,8 @@ export function usePagination<DataT>(
   };
 
   const { debouncedFunction } = useDebouncedFunction(
-      fetchData,
-      config?.debounceOptions?.delay,
+    fetchData,
+    config?.debounceOptions?.delay,
   );
 
   const queryKeyComputed = computed(() => {
@@ -162,9 +162,9 @@ export function usePagination<DataT>(
   const tanstack = useQuery({
     queryKey: queryKeyComputed,
     queryFn:
-        config.debounceOptions?.enabled && process.client
-            ? debouncedFunction
-            : fetchData,
+      config.debounceOptions?.enabled && process.client
+        ? debouncedFunction
+        : fetchData,
     enabled: config.immediately,
     refetchOnWindowFocus: false,
     refetchInterval: false,
@@ -173,9 +173,9 @@ export function usePagination<DataT>(
 
   const setPage = (page: number) => {
     if (
-        page >= 1 &&
-        tanstack.data.value?.meta.totalPages &&
-        page <= tanstack.data.value?.meta.totalPages
+      page >= 1 &&
+      tanstack.data.value?.meta.totalPages &&
+      page <= tanstack.data.value?.meta.totalPages
     ) {
       paginationConfigReactive.page = page;
       if (config?.vueRoute)
@@ -230,12 +230,12 @@ export function usePagination<DataT>(
 
   // Обработка изменений фильтров и сортировки
   watch(
-      [
-        () => paginationConfigReactive.filters,
-        () => paginationConfigReactive.sortBy,
-        () => paginationConfigReactive.sortOrder,
-      ],
-      () => tanstack.refetch(),
+    [
+      () => paginationConfigReactive.filters,
+      () => paginationConfigReactive.sortBy,
+      () => paginationConfigReactive.sortOrder,
+    ],
+    () => tanstack.refetch(),
   );
 
   onServerPrefetch(async () => {
@@ -243,7 +243,7 @@ export function usePagination<DataT>(
   });
 
   const data = computed(() =>
-      tanstack.data.value ? tanstack.data.value : initialData,
+    tanstack.data.value ? tanstack.data.value : initialData,
   );
 
   return {

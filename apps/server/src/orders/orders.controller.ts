@@ -11,11 +11,17 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
 import { cursorPaginateConfig, OrdersService } from './orders.service';
-import { OrderCreateStatusDto, OrderDto } from './order.dto';
+import {
+  OrderCreateResponseDto,
+  OrderCreateStatusDto,
+  OrderDto,
+  OrderStatsDto,
+} from './order.dto';
 import {
   CursorPaginate,
   CursorPaginatedSwaggerDocs,
@@ -35,12 +41,23 @@ export class OrdersController {
   @ApiOperation({ summary: 'Create an order' })
   @ApiOkResponse({
     description: 'The order has been successfully created.',
-    type: OrderDto,
+    type: OrderCreateResponseDto,
   })
   @ApiBody({ type: OrderCreateStatusDto })
-  @TransformResponse(OrderDto)
+  @TransformResponse(OrderCreateResponseDto)
   async create(@User() user: UserEntity, @Body() data: OrderCreateStatusDto) {
-    return this.ordersService.create(user.id, data);
+    return this.ordersService.create(user, data);
+  }
+
+  @Get('stats')
+  @ApiOperation({ summary: 'Get order statistics' })
+  @ApiOkResponse({
+    description: 'Statistics retrieved successfully.',
+    type: OrderStatsDto,
+  })
+  @TransformResponse(OrderStatsDto)
+  async getStats(@User() user: UserEntity) {
+    return this.ordersService.getStats(user.id);
   }
 
   @Get(':orderID')
@@ -65,6 +82,15 @@ export class OrdersController {
     @CursorPaginate() query: CursorPaginateQuery,
   ) {
     return this.ordersService.cursorPaginate(query, user.id);
+  }
+
+  @Patch(':orderID/pay')
+  @ApiOperation({ summary: 'Pay an order' })
+  @ApiOkResponse({ description: 'Order payed successfully.' })
+  @ApiParam({ name: 'orderID', type: 'number' })
+  @TransformResponse(OrderDto)
+  async pay(@User() user: UserEntity, @Param('orderID') orderID: number) {
+    return this.ordersService.payByUser(user, orderID);
   }
 
   @Delete(':orderID/cancel')

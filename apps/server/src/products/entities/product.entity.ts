@@ -74,6 +74,9 @@ export class ProductEntity {
   @Column({ nullable: true })
   image: string;
 
+  @Column({ default: 0 })
+  inStock: number;
+
   @UpdateDateColumn()
   updated: Date;
 

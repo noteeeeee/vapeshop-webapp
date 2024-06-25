@@ -18,13 +18,13 @@ import { Telegraf } from 'telegraf';
 import { getBotToken } from 'nestjs-telegraf';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import fs from 'fs';
-import {createStorageDirs} from "./storage/storage.utils";
+import { createStorageDirs } from './storage/storage.utils';
 
 async function bootstrap() {
   await resolveDynamicProviders();
   initializeTransactionalContext();
   initTypeORMAddons();
-  createStorageDirs()
+  createStorageDirs();
 
   const httpsOptions = {
     key: fs.readFileSync('../../compat/127.0.0.1-key.pem'),

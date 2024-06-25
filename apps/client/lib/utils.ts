@@ -13,7 +13,11 @@ export const mergeWithCN = (target: any, source?: any) => {
   // Iterate over keys in the target object
   for (const key in target) {
     // Check if source is defined and both target[key] and source[key] are objects
-    if (source !== undefined && typeof target[key] === "object" && typeof source[key] === "object") {
+    if (
+      source !== undefined &&
+      typeof target[key] === "object" &&
+      typeof source[key] === "object"
+    ) {
       // Recursively merge nested objects
       merged[key] = mergeWithCN(target[key], source[key]);
     } else {
@@ -28,10 +32,16 @@ export const mergeWithCN = (target: any, source?: any) => {
       if (!(key in target)) {
         // If key from source is not in target, add it to merged
         merged[key] = source[key];
-      } else if (typeof target[key] === "object" && typeof source[key] === "string") {
+      } else if (
+        typeof target[key] === "object" &&
+        typeof source[key] === "string"
+      ) {
         // If target[key] is an object and source[key] is a string, apply the string as a new property in the object
         merged[key] = { ...target[key], [source[key]]: true };
-      } else if (typeof target[key] === "string" && typeof source[key] === "string") {
+      } else if (
+        typeof target[key] === "string" &&
+        typeof source[key] === "string"
+      ) {
         // If both target[key] and source[key] are strings, use a custom merging function (e.g., cn) if needed
         merged[key] = cn(source[key], target[key]); // For now, directly assign the source[key] string
       }
@@ -66,13 +76,13 @@ export const scrollToTop = (): void => {
     const timeElapsed: number = currentTime - startTime;
 
     window.scrollTo(
-        0,
-        easeOutQuad(
-            timeElapsed,
-            currentPosition,
-            targetPosition - currentPosition,
-            duration,
-        ),
+      0,
+      easeOutQuad(
+        timeElapsed,
+        currentPosition,
+        targetPosition - currentPosition,
+        duration,
+      ),
     );
 
     if (timeElapsed < duration) {
