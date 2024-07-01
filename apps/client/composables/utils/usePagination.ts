@@ -126,6 +126,7 @@ export function usePagination<DataT>(
     if (routePage) paginationConfig.page = routePage;
     if (routeFilters)
       paginationConfig.filters = Object.fromEntries(
+        // @ts-ignore
         new URLSearchParams(decodeURIComponent(route.query.filters)),
       );
   }
@@ -206,6 +207,7 @@ export function usePagination<DataT>(
       router.push({
         query: {
           ...router.currentRoute.value.query,
+          // @ts-ignore
           filters: filters ? new URLSearchParams(filters) : undefined,
         },
       });

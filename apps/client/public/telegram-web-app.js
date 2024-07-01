@@ -80,8 +80,9 @@
     }
     var query_params = urlParseQueryString(locationHash);
     for (var k in query_params) {
-      params[k] = query_params[k];
+      params[k] = decodeURIComponent(query_params[k]);
     }
+
     return params;
   }
 
@@ -104,7 +105,7 @@
       paramValue = param[1] == null ? null : urlSafeDecode(param[1]);
       params[paramName] = paramValue;
     }
-    console.log(params)
+
     return params;
   }
 

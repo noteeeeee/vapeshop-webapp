@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import {
   type QueryFunction,
   useQuery,
-  UseQueryOptions,
+  type UseQueryOptions,
   type UseQueryReturnType,
 } from "@tanstack/vue-query";
 
@@ -36,6 +36,7 @@ export function useApi<T>(
   );
 
   // Используем useQuery для выполнения запроса и управления данными
+  // @ts-ignore
   const tanstack = useQuery({
     queryKey: queryKeys,
     queryFn: config.debounceOptions?.enabled ? debouncedFunction : queryFn,

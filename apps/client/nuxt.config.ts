@@ -9,9 +9,11 @@ export default defineNuxtConfig({
     },
   },
   css: [
+    "~/assets/fonts/SF-Pro-Display.scss",
     "~/assets/scss/tailwind.scss",
     "vue-virtual-scroller/dist/vue-virtual-scroller.css",
   ],
+  spaLoadingTemplate: "spa-loading-template.html",
   ssr: false,
   runtimeConfig: {
     public: {

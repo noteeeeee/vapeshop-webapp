@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import {useQuery} from "@tanstack/vue-query";
+const client = useApiClient();
+const { url, isLoading } = useBlobImage(
+  () => client.bot.botControllerAvatar().then((res) => res.data!),
+  "avatar-me",
+);
 
-const client = useApiClient()
-const { data } = useApi(() => client.auth.authControllerMe().then(res => res.data), ["me"])
 </script>
 
 <template>
-<div class="">
-  {{ data }}
-</div>
+  <div class="">
+    <img width="200" height="200" v-if="!isLoading" :src="url" alt="" />
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

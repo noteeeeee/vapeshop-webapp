@@ -12,6 +12,10 @@ import { InjectDayjs, dayjs, paginate } from '../common';
 import { PaginateConfig, PaginateQuery } from 'nestjs-paginate';
 import { AuditService } from '../audit/audit.service';
 import { AuditType } from '../audit';
+import axios from 'axios';
+import { InjectBot } from 'nestjs-telegraf';
+import { Telegraf } from 'telegraf';
+import { Response } from "express"
 
 export const paginateConfig: PaginateConfig<UserEntity> = {
   sortableColumns: ['id', 'created'],
@@ -120,8 +124,6 @@ export class UsersService {
   }
 
   async createOrUpdate(id: number, partial: DeepPartial<UserEntity>) {
-    const isCreated = await this.findOneByID(id);
-
     try {
       const result = await this.usersRepo
         .createQueryBuilder()
@@ -133,11 +135,7 @@ export class UsersService {
       this.logger.error(e);
     }
 
-    const user = await this.findOneByID(id);
-    if (!isCreated)
-      await this.auditService.create(AuditType.USER_CREATED, user);
-
-    return user;
+    return this.findOneByID(id);
   }
 
   async getReferralsCount(referrerID: number): Promise<ReferralStatsDto> {

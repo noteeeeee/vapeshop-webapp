@@ -9,6 +9,7 @@ export class UsersMiddleware {
   private async getReferrerID(ctx: UserContext): Promise<number | undefined> {
     if (!('text' in ctx.message)) return undefined;
     const match = ctx.message.text.match(/\/start r_(\d+)/);
+    if (!match) return undefined
 
     const referrerID = Number(match[1]);
     if (!referrerID || referrerID == ctx.from.id) return undefined;

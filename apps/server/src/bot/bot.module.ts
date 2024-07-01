@@ -4,6 +4,9 @@ import { BotConfigService } from './bot-options.factory';
 import { Telegraf } from 'telegraf';
 import { BotUpdate } from './bot.update';
 import { UsersModule } from '../users/users.module';
+import * as tg from "telegraf/typings/core/types/typegram";
+import {EnvConfig} from "@vapeshop-webapp/config";
+import {BotController} from "./bot.controller";
 
 @Module({
   imports: [
@@ -14,6 +17,7 @@ import { UsersModule } from '../users/users.module';
     UsersModule,
   ],
   providers: [BotUpdate],
+  controllers: [BotController]
 })
 export class BotModule implements OnApplicationBootstrap {
   private logger = new Logger('TelegramBot');

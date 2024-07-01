@@ -1,9 +1,10 @@
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Header, Res } from '@nestjs/common';
 import { TransformResponse } from '../common';
 import { User } from '../auth/decorators';
 import { ReferralStatsDto, UserEntity } from '../users';
 import { UsersService } from './users.service';
+import { Response } from "express"
 
 @ApiTags('Users')
 @Controller('users')

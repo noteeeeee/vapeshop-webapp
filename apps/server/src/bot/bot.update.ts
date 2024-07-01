@@ -1,11 +1,20 @@
 import { Ctx, Start, Update } from 'nestjs-telegraf';
 import { Context, Markup } from 'telegraf';
 import { EnvConfig } from '@vapeshop-webapp/config';
+import * as tg from "telegraf/typings/core/types/typegram";
 
 @Update()
 export class BotUpdate {
   @Start()
   async onStart(@Ctx() ctx: Context) {
+    const menuButton: tg.MenuButton = {
+      type: 'web_app',
+      text: 'Open App',
+      web_app: {
+        url: EnvConfig.APP_BASEURL
+      }
+    }
+    await ctx.setChatMenuButton(menuButton);
     await ctx.replyWithHTML(
       '<b>👋 Приветствуем вас в нашем магазине!</b>\n\n' +
         '<em>Чтобы начать пользоваться нашим сервисом, пожалуйста, откройте наш веб-приложение, нажав на кнопку ниже.</em>\n\n' +

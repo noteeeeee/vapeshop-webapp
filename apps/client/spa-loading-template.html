@@ -1,0 +1,43 @@
+<div class="loader"></div>
+<style>
+  body {
+    background-color: hsl(222.2 84% 4.9%);
+  }
+
+  .loader {
+    display: block;
+    position: fixed;
+    z-index: 1031;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 15px;
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+    border: 2px solid #fff;
+    border-right-color: #0d0d0d;
+    border-bottom-color: #0d0d0d;
+    border-radius: 50%;
+    -webkit-animation: loader 400ms linear infinite;
+    animation: loader 400ms linear infinite;
+  }
+
+  @-webkit-keyframes loader {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @keyframes loader {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>

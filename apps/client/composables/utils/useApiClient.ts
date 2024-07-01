@@ -5,6 +5,7 @@ export const useApiClient = () => {
   const instance = useAxiosInstance();
 
   class MyApi extends Api<any> {
+    // @ts-ignore
     public request = async <T = any, _E = any>({
       path,
       type,
@@ -28,6 +29,7 @@ export const useApiClient = () => {
         params: query,
         data: body,
         url: path,
+        responseType: format
       });
     };
   }
