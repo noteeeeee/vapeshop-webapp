@@ -113,6 +113,9 @@ importers:
       lucide-vue-next:
         specifier: ^0.395.0
         version: 0.395.0(vue@3.4.29)
+      millify:
+        specifier: ^6.1.0
+        version: 6.1.0
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
@@ -8530,6 +8533,13 @@ packages:
     dependencies:
       braces: 3.0.3
       picomatch: 2.3.1
+
+  /millify@6.1.0:
+    resolution: {integrity: sha512-H/E3J6t+DQs/F2YgfDhxUVZz/dF8JXPPKTLHL/yHCcLZLtCXJDUaqvhJXQwqOVBvbyNn4T0WjLpIHd7PAw7fBA==}
+    hasBin: true
+    dependencies:
+      yargs: 17.7.2
+    dev: false
 
   /mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}

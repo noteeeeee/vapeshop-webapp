@@ -1,9 +1,13 @@
-import { Ctx, Start, Update } from 'nestjs-telegraf';
+import { Command, Ctx, Start, Update } from 'nestjs-telegraf';
 import { Context, Markup } from 'telegraf';
 import { EnvConfig } from '@vapeshop-webapp/config';
-import * as tg from "telegraf/typings/core/types/typegram";
+import * as tg from 'telegraf/typings/core/types/typegram';
+import { UseFilters, UseGuards } from '@nestjs/common';
+import { IsAdminGuard } from '../admin';
+import { VoidExceptionFilter } from '../common';
 
 @Update()
+@UseFilters(VoidExceptionFilter)
 export class BotUpdate {
   @Start()
   async onStart(@Ctx() ctx: Context) {
@@ -11,9 +15,9 @@ export class BotUpdate {
       type: 'web_app',
       text: 'Open App',
       web_app: {
-        url: EnvConfig.APP_BASEURL
-      }
-    }
+        url: EnvConfig.APP_BASEURL,
+      },
+    };
     await ctx.setChatMenuButton(menuButton);
     await ctx.replyWithHTML(
       '<b>👋 Приветствуем вас в нашем магазине!</b>\n\n' +
@@ -25,6 +29,17 @@ export class BotUpdate {
         '<em>Спасибо, что выбрали нас! Если у вас возникнут вопросы, не обращайтесь к нашей поддержке.</em>',
       Markup.inlineKeyboard([
         Markup.button.webApp('Открыть приложение', EnvConfig.APP_BASEURL),
+      ]),
+    );
+  }
+
+  @Command('admin')
+  @UseGuards(IsAdminGuard)
+  async admin(@Ctx() ctx: Context) {
+    await ctx.replyWithHTML(
+      `<b>🔐 Пожалуйста, нажмите кнопку ниже, чтобы открыть админ-панель</b>`,
+      Markup.inlineKeyboard([
+        Markup.button.webApp('Открыть приложение', `${EnvConfig.APP_BASEURL}/admin`),
       ]),
     );
   }

@@ -68,6 +68,9 @@ export class ProductEntity {
   @PriceColumn()
   price: number;
 
+  @PriceColumn()
+  buyingPrice: number;
+
   @Column({ nullable: true })
   sale: number;
 

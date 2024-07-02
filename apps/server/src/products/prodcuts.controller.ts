@@ -106,7 +106,7 @@ export class ProductsController {
   @ApiUnauthorizedResponse()
   @ApiForbiddenResponse()
   async increment(@Param('id') id: number, @Body() data: UpdateStockDto) {
-    return this.productsService.inStockIncrement(id, data.quantity);
+    return this.productsService.inStockIncrement(id, data);
   }
 
   @Patch(':id/decrement')
@@ -122,6 +122,6 @@ export class ProductsController {
   @ApiUnauthorizedResponse()
   @ApiForbiddenResponse()
   async decrement(@Param('id') id: number, @Body() data: UpdateStockDto) {
-    return this.productsService.inStockDecrement(id, data.quantity);
+    return this.productsService.inStockDecrement(id, data);
   }
 }

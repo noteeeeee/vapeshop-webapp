@@ -48,7 +48,8 @@ export class CartService {
 
       return {
         uuid: cartItem.uuid,
-        price: cartItem.product.price,
+        price: Math.max(cartItem.product.price, cartItem.product.buyingPrice),
+        buyingPrice: cartItem.product.buyingPrice,
         sale: applicableSale,
         orderID,
       };

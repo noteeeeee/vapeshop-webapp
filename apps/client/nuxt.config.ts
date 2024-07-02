@@ -6,10 +6,22 @@ export default defineNuxtConfig({
   app: {
     head: {
       script: [{ src: "/telegram-web-app.js", defer: true }],
+      meta: [
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1, maximum-scale=1",
+        },
+      ],
+      link: [
+        {
+          href: "https://fonts.cdnfonts.com/css/sf-pro-display",
+          rel: "preconnect",
+          crossorigin: "anonymous",
+        },
+      ],
     },
   },
   css: [
-    "~/assets/fonts/SF-Pro-Display.scss",
     "~/assets/scss/tailwind.scss",
     "vue-virtual-scroller/dist/vue-virtual-scroller.css",
   ],

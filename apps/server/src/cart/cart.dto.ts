@@ -3,6 +3,7 @@ import { IsInt, IsUUID, Max, Min } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ProductDto } from '../products';
 import { CartEntity } from './cart.entity';
+import {PriceColumn} from "../common";
 
 @Exclude()
 export class CartCreateDto {

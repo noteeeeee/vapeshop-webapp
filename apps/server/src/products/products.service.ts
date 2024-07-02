@@ -6,7 +6,7 @@ import { StorageService } from '../storage';
 import { omit } from 'lodash';
 import { ProductEntity } from './entities';
 import { CategoriesService } from '../categories/services';
-import { CreateProductDto, UpdateProductDto } from './dto';
+import { CreateProductDto, UpdateProductDto, UpdateStockDto } from './dto';
 import { OrderStatus } from '../orders/order.types';
 import { CartEntity } from '../cart';
 import { FilterOperator, PaginateConfig, PaginateQuery } from 'nestjs-paginate';
@@ -153,29 +153,64 @@ export class ProductsService {
   }
 
   @Transactional()
-  async inStockIncrement(id: number, quantity: number) {
+  async inStockIncrement(id: number, data: UpdateStockDto) {
     const product = await this.productsRepo.findOneBy({ id });
     if (!product) throw new NotFoundException('Product not found');
 
-    await this.productsRepo.increment({ id }, 'inStock', quantity);
+    const newStock = product.inStock + data.quantity;
+    const newBuyingPrice =
+      (product.buyingPrice * product.inStock +
+        data.buyingPrice * data.quantity) /
+      newStock;
+
+    await this.productsRepo.increment({ id }, 'inStock', data.quantity);
+    await this.productsRepo.update(
+      { id },
+      {
+        buyingPrice: newBuyingPrice,
+        price: data.price,
+      },
+    );
+
     await this.auditService.create(AuditType.PRODUCT_STOCK_INCREMENT, product, {
       oldStock: product.inStock,
-      newStock: product.inStock + quantity,
+      newStock,
     });
 
-    return Object.assign(product, { inStock: product.inStock + quantity });
+    return Object.assign(product, {
+      inStock: newStock,
+      buyingPrice: newBuyingPrice,
+      price: data.price,
+    });
   }
 
-  async inStockDecrement(id: number, quantity: number) {
+  async inStockDecrement(id: number, data: UpdateStockDto) {
     const product = await this.productsRepo.findOneBy({ id });
     if (!product) throw new NotFoundException('Product not found');
 
-    if (product.inStock < quantity) {
+    const newStock = product.inStock - data.quantity;
+    let newBuyingPrice = product.buyingPrice;
+    if (data.buyingPrice) {
+      const totalOldValue = product.buyingPrice * product.inStock;
+      const totalNewValue = data.buyingPrice * data.quantity;
+      newBuyingPrice = (totalOldValue - totalNewValue) / newStock;
+    }
+
+    if (product.inStock < data.quantity) {
       throw new Error('Not enough stock to decrement');
     }
-    await this.productsRepo.decrement({ id }, 'inStock', quantity);
+    await this.productsRepo.decrement({ id }, 'inStock', data.quantity);
+    await this.productsRepo.update(id, {
+      inStock: newStock,
+      buyingPrice: newBuyingPrice,
+      price: data.price,
+    });
 
-    return Object.assign(product, { inStock: product.inStock - quantity });
+    return Object.assign(product, {
+      inStock: newStock,
+      buyingPrice: newBuyingPrice,
+      price: data.price,
+    });
   }
 
   async inStockIncrementBulk(

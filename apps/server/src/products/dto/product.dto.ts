@@ -6,9 +6,8 @@ import { ProductSaleDto, UpdateProductPriceDto } from './product-sale.dto';
 import { ProductFilterDto, UpdateProductFilterDto } from './product-filter.dto';
 import {
   IsArray,
-  IsInt,
-  IsOptional,
-  IsPositive,
+  IsInt, IsNumber,
+  IsOptional, IsPositive,
   IsString,
   Min,
 } from 'class-validator';
@@ -63,7 +62,7 @@ export class ProductDto {
     description: 'The prices associated with the product',
     nullable: true,
   })
-  prices: ProductSaleDto[];
+  quantitySales: ProductSaleDto[];
 
   @Expose()
   @ApiProperty({
@@ -71,6 +70,20 @@ export class ProductDto {
     description: 'The number of times the product has been purchased',
   })
   purchased: number;
+
+  @Expose()
+  @ApiProperty({
+    example: 20,
+    description: 'The price of the product',
+  })
+  price: number;
+
+  @Expose()
+  @ApiProperty({
+    example: 20,
+    description: 'The price of the product',
+  })
+  buyingPrice: number;
 
   @Expose()
   @ApiProperty({
@@ -163,10 +176,17 @@ export class CreateProductDto {
 
   @Expose()
   @ApiProperty({
-    example: 120,
+    example: 20,
     description: 'The price of the product',
   })
-  price?: number;
+  price: number;
+
+  @Expose()
+  @ApiProperty({
+    example: 20,
+    description: 'The price of the product',
+  })
+  buyingPrice: number;
 
   @Expose()
   @IsInt()
@@ -237,7 +257,21 @@ export class UpdateProductDto {
     type: () => [UpdateProductPriceDto],
     description: 'The prices associated with the product',
   })
-  prices?: UpdateProductPriceDto[];
+  quantitySales?: UpdateProductPriceDto[];
+
+  @Expose()
+  @ApiProperty({
+    example: 20,
+    description: 'The price of the product',
+  })
+  price: number;
+
+  @Expose()
+  @ApiProperty({
+    example: 20,
+    description: 'The price of the product',
+  })
+  buyingPrice: number;
 
   @Expose()
   @IsOptional()
@@ -277,4 +311,27 @@ export class UpdateStockDto {
   @IsInt()
   @Min(1)
   quantity: number;
+
+  @Expose()
+  @ApiProperty({
+    example: 5.5,
+    description: 'The buying price of the new stock',
+    required: false,
+  })
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
+  buyingPrice?: number;
+
+  @Expose()
+  @ApiProperty({
+    example: 7.5,
+    description: 'The selling price of the new stock',
+    required: false,
+  })
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
+  price?: number;
 }
+

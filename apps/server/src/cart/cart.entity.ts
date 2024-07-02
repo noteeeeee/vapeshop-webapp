@@ -66,6 +66,9 @@ export class CartEntity {
   @PriceColumn({ nullable: true })
   price: number;
 
+  @PriceColumn()
+  buyingPrice: number;
+
   @Column({ nullable: true })
   sale: number;
 
