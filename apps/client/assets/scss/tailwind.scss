@@ -55,7 +55,7 @@
       --card: 234 56% 7%;
       --card-foreground: 210 40% 98%;
 
-      --popover: 222.2 84% 4.9%;
+      --popover: 244 26% 12%;
       --popover-foreground: 210 40% 98%;
 
       --primary: 226 42% 52%;
@@ -63,6 +63,9 @@
 
       --secondary: 217.2 32.6% 17.5%;
       --secondary-foreground: 210 40% 98%;
+
+      --orange: 36 100% 56%;
+      --text-primary: 233, 100%, 86%;
 
       --muted: 217.2 32.6% 17.5%;
       --muted-foreground: 215 20.2% 65.1%;
@@ -75,7 +78,7 @@
 
       --border: 217.2 32.6% 17.5%;
       --input: 217.2 32.6% 17.5%;
-      --ring: 224.3 76.3% 48%;
+      --ring: 226 42% 52%;
 
       --vis-primary-color: var(--primary);
       /* change to any hsl value you want */
@@ -95,4 +98,6 @@
   }
 }
 
-@import "./nprogress";
+@import "nprogress";
+@import "animations";
+@import "floatingLablels.css";

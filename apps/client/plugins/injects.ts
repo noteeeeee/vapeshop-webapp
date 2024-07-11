@@ -10,6 +10,12 @@ export default defineNuxtPlugin((nuxtApp) => {
         : undefined;
   };
 
+  const currency = (sourceId?: string) => {
+    return sourceId
+        ? `${runtimeConfig.public.apiBaseurl}/storage/filepond/load?source=${sourceId}`
+        : undefined;
+  };
+
   const routeBackOrPush = (path: string) =>
       window.history.length > 2 ? router.back() : router.push(path);
 

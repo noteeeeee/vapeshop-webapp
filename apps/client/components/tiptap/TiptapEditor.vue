@@ -206,7 +206,7 @@ onBeforeUnmount(() => {
       </DialogContent>
     </Dialog>
     <div
-        class="flex gap-x-1 bg-black border-solid border border-border border-b-0"
+        class="flex flex-wrap border-solid border border-border border-b-0 rounded-t-md overflow-hidden"
     >
       <div v-for="action in actions" :key="action">
         <Button
@@ -214,7 +214,7 @@ onBeforeUnmount(() => {
             v-if="action === 'bold'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
             :data-active="editor.isActive('bold')"
             @click="editor.chain().focus().toggleBold().run()"
         >
@@ -225,7 +225,7 @@ onBeforeUnmount(() => {
             v-if="action === 'italic'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
             :data-active="editor.isActive('italic')"
             @click="editor.chain().focus().toggleItalic().run()"
         >
@@ -236,7 +236,7 @@ onBeforeUnmount(() => {
             v-if="action === 'strike'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
             :data-active="editor.isActive('strike')"
             @click="editor.chain().focus().toggleStrike().run()"
         >
@@ -247,7 +247,7 @@ onBeforeUnmount(() => {
             v-if="action === 'underline'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
             :data-active="editor.isActive('underline')"
             @click="editor.chain().focus().toggleUnderline().run()"
         >
@@ -258,7 +258,7 @@ onBeforeUnmount(() => {
             v-if="action === 'link'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
             :data-active="editor.isActive('link')"
             @click="showLinkDialog()"
         >
@@ -269,7 +269,7 @@ onBeforeUnmount(() => {
             v-if="action === 'h3'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
             :data-active="editor.isActive('h3', { level: 3 })"
             @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
         >
@@ -280,7 +280,7 @@ onBeforeUnmount(() => {
             v-if="action === 'h4'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
             :data-active="editor.isActive('h4', { level: 4 })"
             @click="editor.chain().focus().toggleHeading({ level: 4 }).run()"
         >
@@ -291,7 +291,7 @@ onBeforeUnmount(() => {
             v-if="action === 'h5'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
             :data-active="editor.isActive('h5', { level: 5 })"
             @click="editor.chain().focus().toggleHeading({ level: 5 }).run()"
         >
@@ -302,7 +302,7 @@ onBeforeUnmount(() => {
             v-if="action === 'bulletList'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
             :data-active="editor.isActive('bulletList')"
             @click="editor.chain().focus().toggleBulletList().run()"
         >
@@ -313,7 +313,7 @@ onBeforeUnmount(() => {
             v-if="action === 'orderedList'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 data-[active=true]:text-black data-[active=true]:bg-white w-10 h-10"
             :data-active="editor.isActive('orderedList')"
             @click="editor.chain().focus().toggleOrderedList().run()"
         >
@@ -324,7 +324,7 @@ onBeforeUnmount(() => {
             v-if="action === 'undo'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 w-10 h-10"
             @click="editor.chain().focus().undo().run()"
         >
           <Undo class="w-5 h-5"/>
@@ -334,7 +334,7 @@ onBeforeUnmount(() => {
             v-if="action === 'redo'"
             size="icon"
             variant="outline"
-            class="border-none hover:bg-white/10 w-10 h-10"
+            class="border-none rounded-none hover:bg-white/10 w-10 h-10"
             @click="editor.chain().focus().redo().run()"
         >
           <Redo class="w-5 h-5"/>
@@ -353,6 +353,6 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 .tiptap {
-  @apply min-h-20 w-full border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50;
+  @apply min-h-20 w-full rounded-b-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50;
 }
 </style>

@@ -17,7 +17,6 @@ props.context!.classes = mergeWithCN(
       "group-data-[disabled]:bg-neutral-100": true,
       "group-data-[disabled]:!cursor-not-allowed": true,
     },
-    label: "!text-white !font-normal !mb-3",
   },
   props.context!.classes,
 );

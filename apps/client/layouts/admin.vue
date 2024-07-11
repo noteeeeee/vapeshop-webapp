@@ -4,7 +4,7 @@ import { Home, Package, FileClock, LayoutGrid, CirclePlus } from "lucide-vue-nex
 
 <template>
   <div>
-    <div class="pt-8 px-6 pb-32 overflow-auto max-h-screen">
+    <div id="body" vaul-drawer-wrapper class="pt-8 pb-32 overflow-auto max-h-screen">
       <slot />
     </div>
     <div class="fixed bottom-0 w-full bg-card/70 backdrop-blur-md border-t-border border-t p-6">
@@ -13,7 +13,7 @@ import { Home, Package, FileClock, LayoutGrid, CirclePlus } from "lucide-vue-nex
           <Home class="size-8" />
           <span class="text-xs font-medium">Главная</span>
         </NuxtLink>
-        <NuxtLink to="/admin/products" class="transition-opacity flex flex-col justify-center items-center gap-y-2 opacity-60 hover:opacity-100 [&.router-link-active]:opacity-100">
+        <NuxtLink to="/admin/categories/" class="transition-opacity flex flex-col justify-center items-center gap-y-2 opacity-60 hover:opacity-100 [&.router-link-active]:opacity-100">
           <Package class="size-8" />
           <span class="text-xs font-medium">Товары</span>
         </NuxtLink>
@@ -24,10 +24,10 @@ import { Home, Package, FileClock, LayoutGrid, CirclePlus } from "lucide-vue-nex
           <FileClock class="size-8" />
           <span class="text-xs font-medium">Журнал</span>
         </NuxtLink>
-        <Button variant="ghost" class="transition-opacity p-0 h-auto flex flex-col justify-center items-center gap-y-2 opacity-60 hover:opacity-100 hover:bg-transparent">
+        <NuxtLink to="/admin/menu" class="transition-opacity flex flex-col justify-center items-center gap-y-2 opacity-60 hover:opacity-100 [&.router-link-active]:opacity-100">
           <LayoutGrid class="size-8" />
           <span class="text-xs font-medium">Меню</span>
-        </Button>
+        </NuxtLink>
       </div>
     </div>
   </div>

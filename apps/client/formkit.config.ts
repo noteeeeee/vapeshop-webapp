@@ -5,7 +5,7 @@ import {
   createAutoAnimatePlugin,
   createFloatingLabelsPlugin,
 } from "@formkit/addons";
-import "@formkit/addons/css/floatingLabels";
+import {FKDropdown, FKFilePond, FKTiptap, FKToggleGroup, FKNumber, FKCalendar} from "#components";
 
 export default defineFormKitConfig({
   locales: { ru },
@@ -32,5 +32,13 @@ export default defineFormKitConfig({
   ],
   config: {
     rootClasses,
+  },
+  inputs: {
+    filepond: createInput(FKFilePond, {}),
+    dropdown: createInput(FKDropdown, {}),
+    togglegroup: createInput(FKToggleGroup, {}),
+    tiptap: createInput(FKTiptap, {}),
+    numberfiled: createInput(FKNumber, {}),
+    calendar: createInput(FKCalendar, {}),
   },
 });

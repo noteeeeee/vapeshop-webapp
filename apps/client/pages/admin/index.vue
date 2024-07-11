@@ -31,19 +31,19 @@ const data = [
 
 const client = useApiClient();
 const { user } = useAuth();
-const { url: avatarURL, isLoading: avatarIsLOading } = useBlobImage(
+const { url: avatarURL, isLoading: avatarIsLoading } = useBlobImage(
   () => client.bot.botControllerAvatar().then((res) => res.data!),
   "avatar-me",
 );
 </script>
 
 <template>
-  <div class="">
+  <div class="px-6">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-x-4">
         <Avatar class="size-14">
           <AvatarImage
-            v-if="!avatarIsLOading"
+            v-if="!avatarIsLoading"
             :src="avatarURL"
             alt="@radix-vue"
           />

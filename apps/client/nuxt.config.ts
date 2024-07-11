@@ -4,6 +4,7 @@ import { EnvConfig } from "@vapeshop-webapp/config";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
+    pageTransition: { name: "page", mode: "out-in" },
     head: {
       script: [{ src: "/telegram-web-app.js", defer: true }],
       meta: [
@@ -40,6 +41,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxtjs/critters",
     "dayjs-nuxt",
+    "nuxt-lucide-icons"
   ],
   formkit: {
     autoImport: true,

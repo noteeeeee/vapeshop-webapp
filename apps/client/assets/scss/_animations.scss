@@ -1,0 +1,44 @@
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s;
+}
+
+.page-enter,
+.page-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+.checkout-enter-from {
+  opacity: 0;
+  transform: translateX(10px);
+}
+
+.checkout-enter-active,
+.checkout-leave-active {
+  transition: all 0.3s;
+}
+
+.checkout-enter,
+.checkout-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+
+.actionButton-enter-from {
+  opacity: 0;
+}
+
+.actionButton-leave-to {
+  opacity: 0;
+}
+
+.actionButton-enter-from .modal-container,
+.actionButton-leave-to .modal-container {
+  transform: scale(1.1);
+}

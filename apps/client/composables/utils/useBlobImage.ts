@@ -21,6 +21,8 @@ export const useBlobImage = (
       url.value = objectUrl(blob!)!;
       isLoading.value = false;
     });
+  } else {
+    isLoading.value = false;
   }
 
   return { isLoading, url };

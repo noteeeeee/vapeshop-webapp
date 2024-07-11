@@ -26,15 +26,13 @@ async function bootstrap() {
   initTypeORMAddons();
   createStorageDirs();
 
-  const httpsOptions = {
-    key: fs.readFileSync('../../compat/127.0.0.1-key.pem'),
-    cert: fs.readFileSync('../../compat/127.0.0.1.pem'),
-  };
-
   const logger = new Logger('TelegramBot');
   const app = await NestFactory.create(AppModule, {
     logger: WinstonModule.createLogger({ instance: loggerInstance }),
-    httpsOptions: EnvConfig.DEVELOPMENT ? httpsOptions : undefined,
+    httpsOptions: EnvConfig.DEVELOPMENT ? {
+      key: fs.readFileSync('../../compat/127.0.0.1-key.pem'),
+      cert: fs.readFileSync('../../compat/127.0.0.1.pem'),
+    } : undefined,
   });
   const bot: Telegraf = app.get(getBotToken());
 
