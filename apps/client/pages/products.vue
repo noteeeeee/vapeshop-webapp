@@ -243,7 +243,7 @@ const addCartButton = ref(true);
             </div>
           </div>
         </DrawerTrigger>
-        <DrawerContent  v-on:openAutoFocus="(e) => e.preventDefault()">
+        <DrawerContent>
           <div class="p-4">
             <NumberField
               id="age"
