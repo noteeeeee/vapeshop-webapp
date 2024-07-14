@@ -228,11 +228,11 @@ const addCartButton = ref(true);
             >
             </Card>
             <div class="mt-2">
-              <h4 class="font-semibold text-lg flex items-end gap-x-1.5">
+              <h4 class="font-semibold text-base flex items-end gap-x-1">
                 <span>99,4 р</span>
-                <div class="flex items-center gap-x-1.5">
+                <div class="flex items-center gap-x-1">
                   <div class="w-2 border-b border-b-foreground" />
-                  <span class="text-sm font-medium">77,5 р</span>
+                  <span class="text-xs font-medium">77,5 р</span>
                 </div>
               </h4>
               <div class="truncate text-text-primary my-1">Grape Soda</div>
@@ -243,7 +243,7 @@ const addCartButton = ref(true);
             </div>
           </div>
         </DrawerTrigger>
-        <DrawerContent>
+        <DrawerContent  v-on:openAutoFocus="(e) => e.preventDefault()">
           <div class="p-4">
             <NumberField
               id="age"
