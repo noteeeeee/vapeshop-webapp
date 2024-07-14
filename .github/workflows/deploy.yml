@@ -19,7 +19,7 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            cd /opt/vapeshop-webapp-main
+            cd /opt/vapeshop-webapp
             git reset --hard HEAD
             git pull
             pnpm install
