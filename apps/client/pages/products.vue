@@ -37,7 +37,7 @@ const addCartButton = ref(true);
             <SlidersHorizontal class="size-5 text-white w-auto" />
           </Button>
         </SheetTrigger>
-        <SheetContent class="px-0">
+        <SheetContent  v-on:openAutoFocus="(e) => e.preventDefault()" class="px-0">
           <div class="relative flex flex-col">
             <SheetHeader
               class="text-left static top-0 border-b border-b-border pb-4"
@@ -243,7 +243,7 @@ const addCartButton = ref(true);
             </div>
           </div>
         </DrawerTrigger>
-        <DrawerContent>
+        <DrawerContent  v-on:openAutoFocus="(e) => e.preventDefault()">
           <div class="p-4">
             <NumberField
               id="age"
