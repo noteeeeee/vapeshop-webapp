@@ -72,8 +72,6 @@ export class WebAppStrategy extends PassportStrategy(Strategy, 'webapp') {
     );
 
     const arr = this.splitIgnoringJson(encoded);
-    console.log(arr)
-    console.log(encoded)
     const hashIndex = arr.findIndex((str) => str.startsWith('hash='));
     const hash = arr.splice(hashIndex)[0].split('=')[1];
     arr.sort((a, b) => a.localeCompare(b));
