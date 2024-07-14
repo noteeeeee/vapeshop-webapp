@@ -140,6 +140,7 @@ export class StorageService {
         fs.createReadStream(filePath).pipe(res);
       }
     } catch (error) {
+      console.log(error)
       // If any error occurs, return 500
       res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)

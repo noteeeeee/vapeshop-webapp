@@ -3,10 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CategoryEntity } from '../entities';
 import { CreateCategoryDto, UpdateCategoryDto } from '../dto';
+import {runOnTransactionRollback, Transactional} from "typeorm-transactional";
+import {StorageService} from "../../storage";
+import {omit} from "lodash";
 
 @Injectable()
 export class CategoriesService {
   constructor(
+      private storageService: StorageService,
     @InjectRepository(CategoryEntity)
     private readonly categoriesRepo: Repository<CategoryEntity>,
   ) {}
@@ -21,16 +25,36 @@ export class CategoriesService {
     });
   }
 
+  @Transactional()
   async create(data: CreateCategoryDto) {
+    runOnTransactionRollback(() => {
+      if (data.image) this.storageService.revert(data.image);
+    });
+
     const category = this.categoriesRepo.create(data);
+    const [image] = await this.storageService.commit([data.image]);
+    category.image = image;
+
     return await this.categoriesRepo.save(category);
   }
 
+  @Transactional()
   async update(id: number, data: UpdateCategoryDto) {
+    runOnTransactionRollback(() => {
+      if (data.image) this.storageService.revert(data.image);
+    });
+
     const category = await this.findOne(id);
     if (!category) throw new NotFoundException();
 
-    await this.categoriesRepo.update({ id }, data);
+    const [image] = await this.storageService.commit(
+        [data.image],
+        [category.image],
+    );
+    category.image = image;
+
+    const entity = Object.assign(data, omit(category, 'image'));
+    await this.categoriesRepo.update({ id }, entity);
     return this.findOne(id);
   }
 

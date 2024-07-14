@@ -134,7 +134,7 @@ export class ProductsService {
     );
     product.image = image;
 
-    const entity = Object.assign(product, omit(data, 'image'));
+    const entity = Object.assign(data, omit(product, 'image'));
     await this.productsRepo.update({ id }, entity);
     return Object.assign(await this.productsRepo.save(product), {
       category,

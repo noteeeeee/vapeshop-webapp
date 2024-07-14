@@ -1,0 +1,28 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd /opt/vapeshop-webapp-main
+            git reset --hard HEAD
+            git pull
+            pnpm install
+            pnpm run build
+            pnpm run sync
+            pm2 restart all

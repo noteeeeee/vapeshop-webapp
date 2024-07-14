@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { Search } from "lucide-vue-next";
 import { useMounted } from "@vueuse/core";
+import type {CategoryDto} from "~/types";
 
 const isMounted = useMounted();
 const carouselItems = [{}, {}, {}, {}];
+const client = useApiClient();
+const { data, isLoading } = useApi<CategoryDto[]>(
+  () => client.categories.categoriesControllerFindAll().then((res) => res.data),
+  ["categories"],
+);
 </script>
 
 <template>
@@ -25,10 +31,8 @@ const carouselItems = [{}, {}, {}, {}];
     <MainCarousel :items="carouselItems" />
     <div class="mt-8 grid grid-cols-3 gap-x-3 gap-y-6">
       <NuxtLink
-        to="/"
+        to="/products"
         class="cursor-pointer opacity-95 hover:opacity-70 transition-opacity"
-        v-for="i in 6"
-        :key="i"
       >
         <Card
           class="p-4 border-none bg-popover rounded-xl flex justify-center items-center aspect-square"
@@ -76,6 +80,19 @@ const carouselItems = [{}, {}, {}, {}];
           </svg>
         </Card>
         <h4 class="text-sm text-center w-full mt-2">Показать все</h4>
+      </NuxtLink>
+      <NuxtLink
+          to="/"
+          class="cursor-pointer opacity-95 hover:opacity-70 transition-opacity"
+          v-for="category in data"
+          :key="category.id"
+      >
+        <Card
+            class="p-4 border-none bg-popover rounded-xl flex justify-center items-center aspect-square"
+        >
+          <NuxtImg :src="$sourceToUrl(category.image)" />
+        </Card>
+        <h4 class="text-sm text-center w-full mt-2">{{ category.name }}</h4>
       </NuxtLink>
     </div>
     <Teleport to="#actionButton" v-if="isMounted">

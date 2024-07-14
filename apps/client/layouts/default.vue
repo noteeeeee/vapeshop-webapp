@@ -4,14 +4,15 @@ import { Home, BookUser, UserRound } from "lucide-vue-next";
 
 <template>
   <div class="relative">
-    <div
-      class="pt-8 px-6 pb-32 overflow-auto max-h-screen relative"
-      vaul-drawer-wrapper
-    >
+    <div class="pt-8 px-6 pb-32 overflow-auto max-h-screen relative">
       <slot />
     </div>
     <div class="fixed bottom-0 w-full">
-      <div id="actionButton" class="mb-2 flex justify-center relative mx-4" v-auto-animate />
+      <div
+        id="actionButton"
+        class="mb-2 flex justify-center relative mx-4"
+        v-auto-animate
+      />
       <div
         class="flex justify-between bg-card/70 backdrop-blur-md border-t-border border-t p-6"
       >

@@ -15,6 +15,7 @@ import { ApiExcludeController } from '../common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ALLOWED_FILES_FORMATS } from './storage.config';
 import { SkipThrottle } from '@nestjs/throttler';
+import {Public} from "../auth/decorators";
 
 @ApiExcludeController()
 @ApiTags('Storage')
@@ -50,6 +51,7 @@ export class StorageController {
     return this.storageService.revert(id);
   }
 
+  @Public()
   @SkipThrottle()
   @Get('filepond/load')
   async loadFile(@Query('source') source: string, @Res() res: any) {
