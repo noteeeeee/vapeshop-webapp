@@ -1,7 +1,28 @@
-import axios from "axios";
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios from "axios";
 import { useToast } from "~/components/ui/toast";
 import { useWebApp } from "vue-tg";
+
+function objectToHex(obj) {
+  // Convert object to JSON string
+  const jsonStr = JSON.stringify(obj);
+
+  // Convert JSON string to Uint8Array
+  const uint8Array = new TextEncoder().encode(jsonStr);
+
+  // Convert Uint8Array to hexadecimal string
+  const hexString = Array.prototype.map
+    .call(uint8Array, (byte) => {
+      return ("0" + (byte & 0xff).toString(16)).slice(-2);
+    })
+    .join("");
+
+  return Array.prototype.map
+    .call(uint8Array, (byte) => {
+      return ("0" + (byte & 0xff).toString(16)).slice(-2);
+    })
+    .join("");
+}
 
 declare module "axios" {
   export interface AxiosInstance {
@@ -55,7 +76,7 @@ export const useAxiosInstance = () => {
   const instance = axios.create({
     baseURL,
     headers: {
-      "x-telegram-init-data": encodeURIComponent(initData),
+      "authorization": objectToHex(initData),
     },
   });
 

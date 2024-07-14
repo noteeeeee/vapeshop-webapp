@@ -140,6 +140,9 @@ importers:
       nuxt-lucide-icons:
         specifier: ^1.0.5
         version: 1.0.5(vue@3.4.29)
+      punycode:
+        specifier: ^2.3.1
+        version: 2.3.1
       radix-vue:
         specifier: ^1.8.3
         version: 1.8.3(vue@3.4.29)
@@ -152,6 +155,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.4)
+      urlencode:
+        specifier: ^2.0.0
+        version: 2.0.0
       v-calendar:
         specifier: ^3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.4.29)
@@ -264,6 +270,9 @@ importers:
       passport:
         specifier: ^0.7.0
         version: 0.7.0
+      punycode:
+        specifier: ^2.3.1
+        version: 2.3.1
       reflect-metadata:
         specifier: ^0.2.0
         version: 0.2.2
@@ -282,6 +291,9 @@ importers:
       typeorm-transactional:
         specifier: ^0.5.0
         version: 0.5.0(reflect-metadata@0.2.2)(typeorm@0.3.20)
+      urlencode:
+        specifier: ^2.0.0
+        version: 2.0.0
       winston:
         specifier: ^3.13.0
         version: 3.13.0
@@ -12512,6 +12524,12 @@ packages:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
       punycode: 2.3.1
+
+  /urlencode@2.0.0:
+    resolution: {integrity: sha512-K4+koEq4II9FqKKdLyMwfVFiWvTLJsdsIihXCprumjlOwpviO44E4hAhLYBLb6CEVTZh9hXXMTQHIT+Hwv5BPw==}
+    dependencies:
+      iconv-lite: 0.6.3
+    dev: false
 
   /urlpattern-polyfill@8.0.2:
     resolution: {integrity: sha512-Qp95D4TPJl1kC9SKigDcqgyM2VDVO4RiJc2d4qe5GrYm+zbIQCWWKAFaJNQ4BhdFeDGwBmAxqJBwWSJDb9T3BQ==}

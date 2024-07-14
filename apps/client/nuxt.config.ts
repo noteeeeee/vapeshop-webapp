@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "page", mode: "out-in" },
     head: {
-      script: [{ src: "/telegram-web-app.js", defer: true }],
+      script: [{ src: "/telegram-web-app.js?v=1.0.0", defer: true }],
       meta: [
         {
           name: "viewport",
