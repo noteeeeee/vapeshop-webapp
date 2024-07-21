@@ -63,6 +63,21 @@ export class ProductsController {
   }
 
   @ApiExcludeEndpoint()
+  @Get(':id')
+  @TransformResponse(ProductDto)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Find a product by ID' })
+  @ApiParam({ name: 'id', description: 'Product ID', type: Number })
+  @ApiOkResponse({
+    type: ProductDto,
+  })
+  @ApiUnauthorizedResponse()
+  @ApiForbiddenResponse()
+  async findOne(@Param('id') id: number) {
+    return this.productsService.findOne(id);
+  }
+
+  @ApiExcludeEndpoint()
   @Patch(':id')
   @TransformResponse(ProductDto)
   @UseGuards(IsAdminGuard)

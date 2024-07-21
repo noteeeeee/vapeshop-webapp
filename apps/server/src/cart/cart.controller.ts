@@ -48,12 +48,12 @@ export class CartController {
   @ApiBody({ type: CartCreateDto })
   @ApiOkResponse({
     description: 'Item created successfully',
-    type: CartCreateDto,
+    type: CartDto,
   })
   @ApiBadRequestResponse({
     description: 'Exceeded maximum cart items limit',
   })
-  @TransformResponse(CartCreateDto)
+  @TransformResponse(CartDto)
   create(@User() user: UserEntity, @Body() item: CartCreateDto) {
     return this.cartService.create(user.id, item);
   }

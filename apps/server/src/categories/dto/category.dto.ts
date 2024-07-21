@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {Exclude, Expose, Transform} from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import { CategoryEntity } from '../entities';
-import {IsOptional, IsString} from "class-validator";
+import { IsString } from 'class-validator';
 
 @Exclude()
 export class CategoryDto {
@@ -24,6 +24,7 @@ export class CategoryDto {
     description: 'The SVG image for the category',
     required: false,
   })
+  @Transform(({ value }) => (Array.isArray(value) ? value[0] : value))
   image?: string;
 
   @Expose()
@@ -68,18 +69,9 @@ export class CreateCategoryDto {
     description: 'The image for the category',
     required: false,
   })
-  @IsOptional()
   @IsString()
   @Transform(({ value }) => (Array.isArray(value) ? value[0] : value))
   image?: string;
-
-  // @Expose()
-  // @ApiProperty({
-  //   example: 10,
-  //   description: 'The index of the category',
-  //   required: false,
-  // })
-  // index?: number;
 }
 
 @Exclude()
@@ -97,13 +89,7 @@ export class UpdateCategoryDto {
     description: 'The SVG image for the category',
     required: false,
   })
+  @IsString()
+  @Transform(({ value }) => (Array.isArray(value) ? value[0] : value))
   image?: string;
-
-  // @Expose()
-  // @ApiProperty({
-  //   example: 10,
-  //   description: 'The index of the category',
-  //   required: false,
-  // })
-  // index?: number;
 }

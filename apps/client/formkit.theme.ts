@@ -775,7 +775,7 @@ const classes: Record<string, Record<string, boolean>> = {
   },
   form__message: {
     "text-red-600": true,
-    "mb-1.5": true,
+    "mt-1.5": true,
     "text-xs": true,
     "dark:text-red-400": true,
     "group-[]/summary:text-sm": true,
@@ -3366,7 +3366,7 @@ const globals: Record<string, Record<string, boolean>> = {
   },
   message: {
     "text-red-600": true,
-    "mb-1.5": true,
+    "my-1.5": true,
     "text-xs": true,
     "dark:text-red-400": true,
   },

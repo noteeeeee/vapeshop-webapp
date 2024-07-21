@@ -28,7 +28,7 @@ export class MaxCartItemsGuard implements CanActivate {
 
     const { user } = context.switchToHttp().getRequest();
 
-    const cartItemCount = await this.cartService.count(user.user.id);
+    const cartItemCount = await this.cartService.count(user.id);
     const totalItemsCount = cartItemCount + context.getArgs()[0].length;
 
     // Check if adding the new item(s) will exceed the maximum limit

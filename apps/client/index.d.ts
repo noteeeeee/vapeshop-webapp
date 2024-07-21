@@ -9,7 +9,7 @@ declare module "*.svg" {
 declare module "#app" {
   interface NuxtApp {
     $sourceToUrl(sourceId: string): string | undefined;
-
+    $currency(value: number): string;
     $routeBackOrPush(sourceId: string): void;
   }
 }
@@ -17,7 +17,7 @@ declare module "#app" {
 declare module "vue" {
   interface ComponentCustomProperties {
     $sourceToUrl(sourceId: string): string | undefined;
-
+    $currency(value: number): string;
     $routeBackOrPush(sourceId: string): void;
   }
 }
@@ -25,7 +25,7 @@ declare module "vue" {
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
     $sourceToUrl(sourceId: string): string | undefined;
-
+    $currency(value: number): string;
     $routeBackOrPush(sourceId: string): void;
   }
 }

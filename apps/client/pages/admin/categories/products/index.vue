@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import {
-  Search,
-  SlidersHorizontal,
-  Filter,
-  ShoppingBasket,
-  ArrowRight,
-} from "lucide-vue-next";
+import { Search, SlidersHorizontal, Filter } from "lucide-vue-next";
 import BackButton from "~/components/BackButton.vue";
+import ProductCard from "~/components/ProductCard.vue";
+import type { CategoryDto, ProductDto } from "~/types";
+import { useConfirm } from "~/composables/utils/useConfirm";
 
 definePageMeta({
   layout: "admin",
@@ -14,6 +11,21 @@ definePageMeta({
 });
 
 const priceRange = ref([0, 2000]);
+const client = useApiClient();
+const { data, isLoading, refetch } = usePagination<ProductDto>(
+  () => client.products.productsControllerPaginate().then((res) => res.data),
+  "products",
+);
+
+const { $confirm: $delete } = useConfirm({
+  title: "Вы уверенны?",
+  variant: "destructive",
+});
+
+async function onDelete(id: number) {
+  await client.products.productsControllerDelete(id);
+  refetch();
+}
 </script>
 
 <template>
@@ -22,12 +34,12 @@ const priceRange = ref([0, 2000]);
     <div class="mt-6 flex gap-x-2">
       <div class="relative flex-1">
         <Input
-            @keyup.enter="$router.push('/products')"
-            placeholder="Поиск по названию"
-            class="pr-10 pl-6 h-12"
+          @keyup.enter="$router.push('/products')"
+          placeholder="Поиск по названию"
+          class="pr-10 pl-6 h-12"
         />
         <span
-            class="absolute end-0 inset-y-0 flex items-center justify-center px-6"
+          class="absolute end-0 inset-y-0 flex items-center justify-center px-6"
         >
           <Search class="size-4 text-muted-foreground" />
         </span>
@@ -41,7 +53,7 @@ const priceRange = ref([0, 2000]);
         <SheetContent class="px-0">
           <div class="relative flex flex-col">
             <SheetHeader
-                class="text-left static top-0 border-b border-b-border pb-4"
+              class="text-left static top-0 border-b border-b-border pb-4"
             >
               <SheetTitle class="flex items-center gap-x-2 px-6 bg-transparent">
                 <Filter class="size-4" />
@@ -50,14 +62,14 @@ const priceRange = ref([0, 2000]);
             </SheetHeader>
             <div class="overflow-y-auto h-[calc(100vh-140px)]">
               <Accordion
-                  class="px-6"
-                  type="multiple"
-                  collapsible
-                  :default-value="['sort']"
+                class="px-6"
+                type="multiple"
+                collapsible
+                :default-value="['sort']"
               >
                 <AccordionItem value="sort" class="border-b-0">
                   <AccordionTrigger class="hover:no-underline px-1"
-                  >Сортировать
+                    >Сортировать
                   </AccordionTrigger>
                   <AccordionContent class="px-1 pt-1">
                     <Select default-value="top">
@@ -75,19 +87,19 @@ const priceRange = ref([0, 2000]);
               </Accordion>
               <Separator class="mt-4" />
               <Accordion
-                  class="px-6"
-                  type="multiple"
-                  collapsible
-                  :default-value="['price']"
+                class="px-6"
+                type="multiple"
+                collapsible
+                :default-value="['price']"
               >
                 <AccordionItem value="price" class="border-b-0">
                   <AccordionTrigger class="hover:no-underline px-1"
-                  >Цена
+                    >Цена
                   </AccordionTrigger>
                   <AccordionContent class="py-2 px-1">
                     <div class="">
                       <div
-                          class="flex justify-between mb-4 opacity-60 text-xs gap-x-2 items-center"
+                        class="flex justify-between mb-4 opacity-60 text-xs gap-x-2 items-center"
                       >
                         <Input placeholder="0.00" />
                         <div class="border-b-2 border-b-border w-16"></div>
@@ -98,10 +110,10 @@ const priceRange = ref([0, 2000]);
                         <span>{{ priceRange[1].toFixed(2) }}</span>
                       </div>
                       <Slider
-                          :min-steps-between-thumbs="1"
-                          v-model="priceRange"
-                          :max="2000"
-                          :step="1"
+                        :min-steps-between-thumbs="1"
+                        v-model="priceRange"
+                        :max="2000"
+                        :step="1"
                       />
                     </div>
                   </AccordionContent>
@@ -111,8 +123,8 @@ const priceRange = ref([0, 2000]);
               <div class="flex items-center space-x-2 px-6">
                 <Checkbox id="inStocks" />
                 <label
-                    for="inStocks"
-                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  for="inStocks"
+                  class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   В наличии
                 </label>
@@ -121,8 +133,8 @@ const priceRange = ref([0, 2000]);
               <div class="flex items-center space-x-2 px-6">
                 <Checkbox id="withSale" />
                 <label
-                    for="withSale"
-                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  for="withSale"
+                  class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   Товар по акции
                 </label>
@@ -131,14 +143,14 @@ const priceRange = ref([0, 2000]);
               <Accordion type="multiple" collapsible :default-value="['brand']">
                 <AccordionItem value="brand">
                   <AccordionTrigger class="hover:no-underline px-6"
-                  >Бренд
+                    >Бренд
                   </AccordionTrigger>
                   <AccordionContent class="px-6 flex flex-col gap-y-2">
                     <div class="flex items-center space-x-2">
                       <Checkbox id="brand-1" />
                       <label
-                          for="brand-1"
-                          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="brand-1"
+                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Бренд 1
                       </label>
@@ -146,8 +158,8 @@ const priceRange = ref([0, 2000]);
                     <div class="flex items-center space-x-2">
                       <Checkbox id="brand-1" />
                       <label
-                          for="brand-1"
-                          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="brand-1"
+                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Бренд 2
                       </label>
@@ -156,14 +168,14 @@ const priceRange = ref([0, 2000]);
                 </AccordionItem>
                 <AccordionItem value="brand">
                   <AccordionTrigger class="hover:no-underline px-6"
-                  >Тип некотина
+                    >Тип некотина
                   </AccordionTrigger>
                   <AccordionContent class="px-6 flex flex-col gap-y-2">
                     <div class="flex items-center space-x-2">
                       <Checkbox id="brand-1" />
                       <label
-                          for="brand-1"
-                          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="brand-1"
+                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Солевой
                       </label>
@@ -171,8 +183,8 @@ const priceRange = ref([0, 2000]);
                     <div class="flex items-center space-x-2">
                       <Checkbox id="brand-1" />
                       <label
-                          for="brand-1"
-                          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="brand-1"
+                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Гибритный
                       </label>
@@ -181,14 +193,14 @@ const priceRange = ref([0, 2000]);
                 </AccordionItem>
                 <AccordionItem value="brand" class="last-of-type:border-b-0">
                   <AccordionTrigger class="hover:no-underline px-6"
-                  >Вкус
+                    >Вкус
                   </AccordionTrigger>
                   <AccordionContent class="px-6 flex flex-col gap-y-2">
                     <div class="flex items-center space-x-2">
                       <Checkbox id="brand-1" />
                       <label
-                          for="brand-1"
-                          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="brand-1"
+                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Выпечка
                       </label>
@@ -196,8 +208,8 @@ const priceRange = ref([0, 2000]);
                     <div class="flex items-center space-x-2">
                       <Checkbox id="brand-1" />
                       <label
-                          for="brand-1"
-                          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        for="brand-1"
+                        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Ягодный
                       </label>
@@ -207,7 +219,7 @@ const priceRange = ref([0, 2000]);
               </Accordion>
             </div>
             <div
-                class="text-left static bottom-0 border-b border-b-border pb-4 bg-background pt-4 px-6 border-t border-t-border"
+              class="text-left static bottom-0 border-b border-b-border pb-4 bg-background pt-4 px-6 border-t border-t-border"
             >
               <div class="flex gap-x-4">
                 <Button class="flex-1">Приминить</Button>
@@ -219,40 +231,24 @@ const priceRange = ref([0, 2000]);
       </Sheet>
     </div>
     <div class="mt-8 grid grid-cols-3 gap-x-3 gap-y-6">
-      <Drawer v-for="i in 20" :key="i">
-        <DrawerTrigger as-child>
-          <div
-              class="cursor-pointer opacity-95 hover:opacity-70 transition-opacity text-left"
-          >
-            <Card
-                class="p-4 border-none bg-popover rounded-xl flex justify-center items-center aspect-square"
-            >
-            </Card>
-            <div class="mt-2">
-              <h4 class="font-semibold text-lg flex items-end gap-x-1.5">
-                <span>99,4 р</span>
-                <div class="flex items-center gap-x-1.5">
-                  <div class="w-2 border-b border-b-foreground" />
-                  <span class="text-sm font-medium">77,5 р</span>
-                </div>
-              </h4>
-              <div class="truncate text-text-primary my-1">Grape Soda</div>
-              <div class="truncate text-sm opacity-60">Protest Liquid</div>
-              <div class="truncate text-xs opacity-40">
-                50 MG Strong / Фруктовый / Гибритный
-              </div>
-            </div>
-          </div>
-        </DrawerTrigger>
-        <DrawerContent v-on:openAutoFocus="(e) => e.preventDefault()">
-          <div class="p-4 flex flex-col gap-4">
-            <Button as-child>
-              <NuxtLink to="/admin/categories/products/1">Редактировать</NuxtLink>
-            </Button>
-            <Button variant="destructive">Удалить</Button>
-          </div>
-        </DrawerContent>
-      </Drawer>
+      <ContextMenu v-for="product in data.data" :key="product.id">
+        <ContextMenuTrigger as-child>
+         <NuxtLink :to="`/admin/categories/products/${product.id}`">
+           <ProductCard v-bind="product" />
+         </NuxtLink>
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuItem
+            @click="
+              $delete({
+                onConfirm: () => onDelete(product.id),
+              })
+            "
+            class="text-destructive"
+            >Удалить
+          </ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
     </div>
   </div>
 </template>

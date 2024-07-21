@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectDayjs, dayjs } from '../common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CartEntity } from './cart.entity';
@@ -31,16 +35,18 @@ export class CartService {
     const cartItems = await this.cartRepository
       .createQueryBuilder('cart')
       .leftJoinAndSelect('cart.product', 'product')
-      .leftJoinAndSelect('cart.product.quantitySales', 'quantitySales')
       .where('cart.uuid IN (:...uuids)', { uuids })
       .getMany();
 
     const totalQuantity = _.sumBy(cartItems, 'quantity');
     const updates = cartItems.map((cartItem) => {
-      const maxQuantitySale =
-        _(cartItem.product.quantitySales)
-          .filter((qs) => totalQuantity >= qs.quantity)
-          .maxBy('sale')?.sale || 0;
+      const maxQuantitySale = Math.max(
+        cartItem.product.quantitySales_5,
+        cartItem.product.quantitySales_10,
+        cartItem.product.quantitySales_20,
+        cartItem.product.quantitySales_40,
+        cartItem.product.quantitySales_100,
+      );
 
       const totalSale =
         (cartItem.product.sale || 0) + maxQuantitySale + user.discount;
@@ -75,10 +81,15 @@ export class CartService {
   }
 
   async create(userID: number, item: CartCreateDto) {
-    const product = this.productsService.findOne(item.productID);
+    const product = await this.productsService.findOne(item.productID);
     if (!product)
       throw new NotFoundException(
         `Product with ID ${item.productID} not found.`,
+      );
+
+    if (product.inStock < item.quantity)
+      throw new BadRequestException(
+        `Product with ID ${item.productID} is out of stock.`,
       );
 
     const cartItem = this.cartRepository.create({
@@ -106,6 +117,11 @@ export class CartService {
       if (!cartItem)
         throw new NotFoundException(
           `Cart item with UUID ${update.uuid} not found.`,
+        );
+
+      if (cartItem.product.inStock < update.quantity)
+        throw new BadRequestException(
+          `Product with ID ${cartItem.productID} is out of stock.`,
         );
 
       await this.cartRepository.update(

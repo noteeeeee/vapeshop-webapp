@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
   ProductEntity,
-  ProductFilterEntity,
+  // ProductFilterEntity,
   ProductSaleEntity,
 } from './entities';
 import { ProductsService } from './products.service';
@@ -13,7 +13,7 @@ import { CategoriesModule } from '../categories/categories.module';
   imports: [
     TypeOrmModule.forFeature([
       ProductEntity,
-      ProductFilterEntity,
+      // ProductFilterEntity,
       ProductSaleEntity,
     ]),
     CategoriesModule,

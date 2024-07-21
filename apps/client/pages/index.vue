@@ -82,7 +82,7 @@ const { data, isLoading } = useApi<CategoryDto[]>(
         <h4 class="text-sm text-center w-full mt-2">Показать все</h4>
       </NuxtLink>
       <NuxtLink
-          to="/"
+          to="/products"
           class="cursor-pointer opacity-95 hover:opacity-70 transition-opacity"
           v-for="category in data"
           :key="category.id"

@@ -5,14 +5,50 @@ import {
   Filter,
   ShoppingBasket,
   ArrowRight,
+  LoaderCircle,
 } from "lucide-vue-next";
 import BackButton from "~/components/BackButton.vue";
 import { useMounted } from "@vueuse/core";
+import ProductCard from "~/components/ProductCard.vue";
+import type { ProductDto } from "~/types";
 
+const { getFlavorLabel, getNicotineLabel, getStrengthLabel } = useFilters();
 const isMounted = useMounted();
+const client = useApiClient();
+const {
+  create: cartCreate,
+  data: cart,
+  updateItemQuality,
+  isLoadingUpdate,
+} = useCart();
 
 const priceRange = ref([0, 2000]);
-const addCartButton = ref(true);
+const isShowProduct = ref(false);
+const product = ref<ProductDto>();
+const quantity = ref(0)
+const productInCart = computed(
+  () =>
+    product.value &&
+    cart.value.find((item) => item.product.id == product.value.id),
+);
+
+function openProduct(p: ProductDto) {
+  product.value = p;
+  quantity.value = 1
+  isShowProduct.value = true;
+}
+
+async function addItemToCart(credentials: any) {
+  await cartCreate({
+    productID: product.value!.id,
+    quantity: credentials.quantity,
+  });
+}
+
+const { data, isLoading, refetch } = usePagination<ProductDto>(
+  () => client.products.productsControllerPaginate().then((res) => res.data),
+  "products",
+);
 </script>
 
 <template>
@@ -37,7 +73,10 @@ const addCartButton = ref(true);
             <SlidersHorizontal class="size-5 text-white w-auto" />
           </Button>
         </SheetTrigger>
-        <SheetContent  v-on:openAutoFocus="(e) => e.preventDefault()" class="px-0">
+        <SheetContent
+          v-on:openAutoFocus="(e) => e.preventDefault()"
+          class="px-0"
+        >
           <div class="relative flex flex-col">
             <SheetHeader
               class="text-left static top-0 border-b border-b-border pb-4"
@@ -217,70 +256,92 @@ const addCartButton = ref(true);
         </SheetContent>
       </Sheet>
     </div>
-    <div class="mt-8 grid grid-cols-3 gap-x-3 gap-y-6">
-      <Drawer v-for="i in 20" :key="i">
-        <DrawerTrigger as-child>
-          <div
-            class="cursor-pointer opacity-95 hover:opacity-70 transition-opacity text-left"
-          >
-            <Card
-              class="p-4 border-none bg-popover rounded-xl flex justify-center items-center aspect-square"
-            >
-            </Card>
-            <div class="mt-2">
-              <h4 class="font-semibold text-base flex items-end gap-x-1">
-                <span>99,4 р</span>
-                <div class="flex items-center gap-x-1">
-                  <div class="w-2 border-b border-b-foreground" />
-                  <span class="text-xs font-medium">77,5 р</span>
-                </div>
-              </h4>
-              <div class="truncate text-text-primary my-1">Grape Soda</div>
-              <div class="truncate text-sm opacity-60">Protest Liquid</div>
-              <div class="truncate text-xs opacity-40">
-                50 MG Strong / Фруктовый / Гибритный
-              </div>
-            </div>
-          </div>
-        </DrawerTrigger>
-        <DrawerContent  v-on:openAutoFocus="(e) => e.preventDefault()">
+    <Drawer v-model:open="isShowProduct">
+      <DrawerContent v-on:openAutoFocus="(e) => e.preventDefault()">
+        <FormKit
+          :classes="{
+            message: '!hidden',
+          }"
+          type="form"
+          @submit="addItemToCart"
+          :actions="false"
+        >
           <div class="p-4">
-            <NumberField
-              id="age"
-              :default-value="18"
+            <div class="text-xs opacity-40 mb-2">
+              {{ getStrengthLabel(product.strength) }} /
+              {{ getFlavorLabel(product.flavor) }} /
+              {{ getNicotineLabel(product.nicotine) }}
+            </div>
+            <FormKit
+              type="numberfiled"
+              name="quantity"
               :min="1"
               :step="1"
-              :max="1000"
+              :max="product.inStock"
+              :value="productInCart?.quantity || 1"
+              :validation="`required|min:1|max:${product.inStock}`"
+              :disabled="!product.inStock"
+              @input="
+                (value) =>
+                  productInCart ?
+                  updateItemQuality(productInCart.uuid, value as any) :
+                  quantity = value as any
+              "
+              label="Количество"
+              :classes="{
+                outer: '!mb-0'
+              }"
             >
-              <Label for="age" class="mb-1">Количество</Label>
-              <NumberFieldContent>
-                <NumberFieldDecrement />
-                <NumberFieldInput class="font-semibold !text-lg" />
-                <NumberFieldIncrement />
-              </NumberFieldContent>
-            </NumberField>
-            <div class="mt-4" v-auto-animate>
+              <NumberFieldDecrement />
+              <NumberFieldInput />
+              <NumberFieldIncrement />
+            </FormKit>
+            <div class="text-sm opacity-40 mt-2 text-right min-h-5" v-auto-animate>
+              <p v-if="!product.inStock">
+                Нет в наличии
+              </p>
+              <p v-else-if="quantity >= product.inStock">
+                В наличии: {{ product.inStock }} шт.
+              </p>
+            </div>
+            <div class="mt-4 flex flex-col" v-auto-animate>
               <Button
-                v-if="addCartButton"
-                @click="addCartButton = false"
+                v-if="productInCart"
+                as-child
                 class="w-full gap-x-2 font-semibold text-base"
-                variant="orange"
+                :class="isLoadingUpdate && 'pointer-events-none opacity-50'"
+                variant="outline"
+              >
+                <NuxtLink to="/cart" v-auto-animate>
+                  <span>Перейти в корзину</span>
+                  <div v-if="isLoadingUpdate">
+                    <LoaderCircle class="size-6 animate-spin" />
+                  </div>
+                  <ArrowRight v-else class="size-6" />
+                </NuxtLink>
+              </Button>
+              <FormKit
+                v-else
+                type="submit"
+                :classes="{
+                  input: 'gap-x-2 !bg-orange !text-black',
+                }"
               >
                 <ShoppingBasket class="size-6" />
                 <span>Добавить в корзину</span>
-              </Button>
-              <Button
-                v-else
-                class="w-full gap-x-2 font-semibold text-base"
-                variant="outline"
-              >
-                <span>Перейти в корзину</span>
-                <ArrowRight class="size-6" />
-              </Button>
+              </FormKit>
             </div>
           </div>
-        </DrawerContent>
-      </Drawer>
+        </FormKit>
+      </DrawerContent>
+    </Drawer>
+    <div class="mt-8 grid grid-cols-3 gap-x-3 gap-y-6">
+      <ProductCard
+        v-for="product in data.data"
+        :key="product.id"
+        v-bind="product"
+        @click="openProduct(product)"
+      />
     </div>
     <Teleport to="#actionButton" v-if="isMounted">
       <CartButton />

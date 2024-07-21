@@ -9,7 +9,7 @@ import {FKDropdown, FKFilePond, FKTiptap, FKToggleGroup, FKNumber, FKCalendar} f
 
 export default defineFormKitConfig({
   locales: { ru },
-  locale: "RU",
+  locale: "ru",
   plugins: [
     createFloatingLabelsPlugin({
       // useAsDefault: true, // defaults to false

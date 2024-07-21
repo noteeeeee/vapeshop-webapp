@@ -9,10 +9,8 @@ import {
   RelationId,
   UpdateDateColumn,
 } from 'typeorm';
-import { BrandEntity, CategoryEntity } from '../../categories';
+import { CategoryEntity } from '../../categories';
 import { PriceColumn, VirtualColumn } from '../../common';
-import { ProductFilterEntity } from './product-filter.entity';
-import { ProductSaleEntity } from './product-sale.entity';
 
 @Entity({ name: 'products' })
 export class ProductEntity {
@@ -35,32 +33,17 @@ export class ProductEntity {
   })
   category: CategoryEntity;
 
-  @RelationId((product: ProductEntity) => product.brand)
   @Column({ nullable: true })
-  brandID: number;
+  flavor: string;
 
-  @JoinColumn({ name: 'brandID' })
-  @ManyToOne(() => BrandEntity, {
-    onDelete: 'SET NULL',
-    persistence: false,
-    cascade: true,
-    nullable: true,
-  })
-  brand: BrandEntity;
+  @Column({ nullable: true })
+  strength: string;
 
-  @OneToMany(() => ProductFilterEntity, (filter) => filter.product, {
-    orphanedRowAction: 'delete',
-    persistence: false,
-    nullable: true,
-  })
-  filters: ProductFilterEntity[];
+  @Column({ nullable: true })
+  nicotine: string;
 
-  @OneToMany(() => ProductSaleEntity, (price) => price.product, {
-    orphanedRowAction: 'delete',
-    persistence: false,
-    nullable: true,
-  })
-  quantitySales: ProductSaleEntity[];
+  @Column({ nullable: true })
+  brand: string;
 
   @VirtualColumn()
   purchased: number;
@@ -73,6 +56,21 @@ export class ProductEntity {
 
   @Column({ nullable: true })
   sale: number;
+
+  @Column({ nullable: true })
+  quantitySales_5: number;
+
+  @Column({ nullable: true })
+  quantitySales_10: number;
+
+  @Column({ nullable: true })
+  quantitySales_20: number;
+
+  @Column({ nullable: true })
+  quantitySales_40: number;
+
+  @Column({ nullable: true })
+  quantitySales_100: number;
 
   @Column({ nullable: true })
   image: string;

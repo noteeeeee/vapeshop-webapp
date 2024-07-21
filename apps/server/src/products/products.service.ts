@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { runOnTransactionRollback, Transactional } from 'typeorm-transactional';
 import { StorageService } from '../storage';
-import { omit } from 'lodash';
+import {omit, pick} from 'lodash';
 import { ProductEntity } from './entities';
 import { CategoriesService } from '../categories/services';
 import { CreateProductDto, UpdateProductDto, UpdateStockDto } from './dto';
@@ -47,9 +47,6 @@ export class ProductsService {
     return this.productsRepo
       .createQueryBuilder('e')
       .leftJoinAndSelect('e.category', 'category')
-      .leftJoinAndSelect('e.brand', 'brand')
-      .leftJoinAndSelect('e.quantitySales', 'quantitySales')
-      .leftJoinAndSelect('e.filters', 'filters')
       .addSelect((subQuery) => {
         return subQuery
           .select('COUNT(cart.uuid)', 'purchased')
@@ -71,7 +68,6 @@ export class ProductsService {
     const repo = this.productsRepo
       .createQueryBuilder('e')
       .leftJoinAndSelect('e.category', 'category')
-      .leftJoinAndSelect('e.brand', 'brand')
       .addSelect((subQuery) => {
         return subQuery
           .select('COUNT(cart.uuid)', 'purchased')
@@ -95,9 +91,6 @@ export class ProductsService {
     if (!category && data.categoryID)
       throw new NotFoundException('Category not found');
 
-    const brand = await this.categoriesService.findOne(data.brandID);
-    if (!brand && data.brandID) throw new NotFoundException('Brand not found');
-
     runOnTransactionRollback(() => {
       if (data.image) this.storageService.revert(data.image);
     });
@@ -108,7 +101,6 @@ export class ProductsService {
 
     return Object.assign(await this.productsRepo.save(product), {
       category,
-      brand,
     });
   }
 
@@ -117,9 +109,6 @@ export class ProductsService {
     const category = await this.categoriesService.findOne(data.categoryID);
     if (!category && data.categoryID)
       throw new NotFoundException('Category not found');
-
-    const brand = await this.categoriesService.findOne(data.brandID);
-    if (!brand && data.brandID) throw new NotFoundException('Brand not found');
 
     const product = await this.productsRepo.findOneBy({ id });
     if (!product) throw new NotFoundException('Product not found');
@@ -134,12 +123,9 @@ export class ProductsService {
     );
     product.image = image;
 
-    const entity = Object.assign(data, omit(product, 'image'));
+    const entity = Object.assign(data, pick(product, 'image'));
     await this.productsRepo.update({ id }, entity);
-    return Object.assign(await this.productsRepo.save(product), {
-      category,
-      brand,
-    });
+    return this.findOne(id)
   }
 
   async delete(id: number) {

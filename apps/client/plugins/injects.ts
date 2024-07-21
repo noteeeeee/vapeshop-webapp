@@ -10,10 +10,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         : undefined;
   };
 
-  const currency = (sourceId?: string) => {
-    return sourceId
-        ? `${runtimeConfig.public.apiBaseurl}/storage/filepond/load?source=${sourceId}`
-        : undefined;
+  const currency = (value?: number) => {
+    return `${value.toFixed(1)} р`;
   };
 
   const routeBackOrPush = (path: string) =>
@@ -23,6 +21,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     provide: {
       sourceToUrl,
       routeBackOrPush,
+      currency
     },
   };
 });

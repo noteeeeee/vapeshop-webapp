@@ -12,7 +12,7 @@ import { CartEntity } from './cart';
 import { OrderEntity } from './orders';
 import {
   ProductEntity,
-  ProductFilterEntity,
+  // ProductFilterEntity,
   ProductSaleEntity,
 } from './products';
 import { AuditEntity } from './audit';
@@ -32,7 +32,7 @@ export default new DataSource({
     CategoryFilterEntity,
     ProductEntity,
     ProductSaleEntity,
-    ProductFilterEntity,
+    // ProductFilterEntity,
     DeliveryEntity,
     CartEntity,
     OrderEntity,

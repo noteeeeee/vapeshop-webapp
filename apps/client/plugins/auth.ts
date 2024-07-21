@@ -1,7 +1,5 @@
 export default defineNuxtPlugin(async (nuxtApp) => {
-  const { getMe, user } = useAuth();
+  const { getMe } = useAuth();
 
-  if (typeof user.value === "undefined") {
-    await getMe();
-  }
+  await getMe();
 });

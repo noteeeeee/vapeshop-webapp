@@ -4,6 +4,7 @@ import { Primitive, type PrimitiveProps } from "radix-vue";
 import type { HTMLAttributes } from "vue";
 import { cn } from "~/lib/utils";
 
+const { totalQuantity, totalPriceWithSale } = useCart()
 const props = defineProps<
   PrimitiveProps & {
     class?: HTMLAttributes["class"];
@@ -16,7 +17,7 @@ const props = defineProps<
     v-bind="props"
     :class="cn('bg-background w-full absolute bottom-0', props.class)"
   >
-    <Button variant="orange" as-child>
+    <Button variant="orange" v-if="totalQuantity" as-child>
       <NuxtLink
         to="/cart"
         class="w-full rounded-md flex items-center gap-x-4 h-12"
@@ -26,9 +27,9 @@ const props = defineProps<
           <span class="font-semibold text-xl">В корзину</span>
         </div>
         <div class="h-4 border-x border-black"></div>
-        <span class="font-semibold">8 шт</span>
+        <span class="font-semibold">{{ totalQuantity }} шт</span>
         <div class="h-4 border-x border-black"></div>
-        <span class="font-semibold">9.000 р</span>
+        <span class="font-semibold">{{ $currency(totalPriceWithSale) }}</span>
       </NuxtLink>
     </Button>
   </Primitive>

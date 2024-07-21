@@ -1,41 +1,27 @@
 <script setup lang="ts">
 import { Package } from "lucide-vue-next";
-import type { CategoryDto, ProductDto } from "~/types";
-import { useToast } from "~/components/ui/toast";
-import {useQueryClient} from "@tanstack/vue-query";
+import type { CategoryDto } from "~/types";
+import {useToast} from "~/components/ui/toast";
 
 definePageMeta({
   layout: "admin",
   middleware: "admin",
 });
 
-const queryClient = useQueryClient();
 const router = useRouter();
-const route = useRoute();
 const { toast } = useToast();
 const client = useApiClient();
 const { flavors, nicotine, strength } = useFilters();
-
-const { data } = useApi<ProductDto>(
-  () =>
-    client.products
-      .productsControllerFindOne(route.params.id)
-      .then((res) => res.data),
-  ["product", route.params.id],
-);
 const { data: categories } = useApi<CategoryDto[]>(
   () => client.categories.categoriesControllerFindAll().then((res) => res.data),
   ["categories"],
 );
 
 function submit(credentials: any) {
-  client.products.productsControllerUpdate(route.params.id, credentials).then(() => {
+  client.products.productsControllerCreate(credentials).then(() => {
     toast({
-      title: "Товар обновлен",
+      title: "Товар создан",
     });
-    queryClient.removeQueries({
-      queryKey: ["products"],
-    })
     router.push("/admin/categories/products");
   });
 }
@@ -44,7 +30,7 @@ function submit(credentials: any) {
 <template>
   <div class="px-6">
     <BackButton to="/admin" />
-    <FormKit type="form" @submit="submit" :actions="false" v-if="data">
+    <FormKit type="form" @submit="submit" :actions="false">
       <div class="mt-6">
         <h2 class="text-3xl font-semibold flex items-center gap-x-2">
           <Package class="size-8" />
@@ -55,16 +41,14 @@ function submit(credentials: any) {
         <FormKit
           name="name"
           type="text"
-          :value="data.name"
           validation="required"
           label="Название товара"
         />
-        <FormKit :value="data.brand" name="brand" type="text" label="Название бренда" />
+        <FormKit name="brand" type="text" label="Название бренда" />
         <FormKit
           type="filepond"
           class="mb-0"
           name="image"
-          :value="[data.image]"
           placeholder="Выберите изображение..."
           image-resize-target-width="248"
           image-resize-mode="contain"
@@ -78,7 +62,6 @@ function submit(credentials: any) {
           <div class="">
             <FormKit
               type="numberfiled"
-              :value="data.quantitySales_5"
               name="quantitySales_5"
               :default-value="0"
               :step="0.01"
@@ -93,7 +76,6 @@ function submit(credentials: any) {
             </FormKit>
             <FormKit
               type="numberfiled"
-              :value="data.quantitySales_10"
               name="quantitySales_10"
               :default-value="0"
               :step="0.01"
@@ -108,7 +90,6 @@ function submit(credentials: any) {
             </FormKit>
             <FormKit
               type="numberfiled"
-              :value="data.quantitySales_20"
               name="quantitySales_20"
               :default-value="0"
               :step="0.01"
@@ -123,7 +104,6 @@ function submit(credentials: any) {
             </FormKit>
             <FormKit
               type="numberfiled"
-              :value="data.quantitySales_40"
               name="quantitySales_40"
               :default-value="0"
               :step="0.01"
@@ -139,7 +119,6 @@ function submit(credentials: any) {
             <FormKit
               type="numberfiled"
               name="quantitySales_100"
-              :value="data.quantitySales_100"
               :default-value="0"
               :step="0.01"
               :format-options="{
@@ -157,9 +136,7 @@ function submit(credentials: any) {
             <FormKit
               type="numberfiled"
               name="price"
-              :value="data.price"
               :default-value="0"
-              :step="0.1"
               validation="required"
               :format-options="{
                 style: 'currency',
@@ -176,10 +153,8 @@ function submit(credentials: any) {
             <FormKit
               type="numberfiled"
               name="buyingPrice"
-              :value="data.buyingPrice"
               validation="required"
               :default-value="0"
-              :step="0.1"
               :format-options="{
                 style: 'currency',
                 currency: 'RUB',
@@ -196,7 +171,6 @@ function submit(credentials: any) {
             <FormKit
               type="numberfiled"
               name="sale"
-              :value="data.sale"
               :default-value="0"
               :step="0.01"
               :format-options="{
@@ -215,7 +189,7 @@ function submit(credentials: any) {
       <div class="mt-6">
         <h2 class="text-3xl font-semibold">Фильтры</h2>
         <div class="mt-4">
-          <FormKit :value="data.flavor" type="dropdown" name="flavor" label="Вкус">
+          <FormKit type="dropdown" name="flavor" label="Вкус">
             <SelectTrigger>
               <SelectValue placeholder="Не выбрана" />
             </SelectTrigger>
@@ -229,7 +203,7 @@ function submit(credentials: any) {
               </SelectItem>
             </SelectContent>
           </FormKit>
-          <FormKit :value="data.nicotine" type="dropdown" name="nicotine" label="Неконтин">
+          <FormKit type="dropdown" name="nicotine" label="Неконтин">
             <SelectTrigger>
               <SelectValue placeholder="Не выбрана" />
             </SelectTrigger>
@@ -239,7 +213,7 @@ function submit(credentials: any) {
               </SelectItem>
             </SelectContent>
           </FormKit>
-          <FormKit :value="data.strength" type="dropdown" name="strength" label="Крепость">
+          <FormKit type="dropdown" name="strength" label="Крепость">
             <SelectTrigger>
               <SelectValue placeholder="Не выбрана" />
             </SelectTrigger>
@@ -255,7 +229,6 @@ function submit(credentials: any) {
         <h2 class="text-3xl font-semibold mb-4">Основная информация</h2>
         <FormKit
           v-if="categories"
-          :value="String(data.category?.id)"
           type="dropdown"
           name="categoryID"
           label="Категория"
@@ -270,7 +243,7 @@ function submit(credentials: any) {
             </SelectItem>
           </SelectContent>
         </FormKit>
-        <FormKit type="submit">Редактировать</FormKit>
+        <FormKit type="submit">Создать</FormKit>
       </div>
     </FormKit>
   </div>

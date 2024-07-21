@@ -1,13 +1,12 @@
-import { Exclude, Expose, Type } from 'class-transformer';
+import {Exclude, Expose, Transform, Type} from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { BrandDto, CategoryDto } from '../../categories';
+import { CategoryDto } from '../../categories';
 import { ProductEntity } from '../entities';
-import { ProductSaleDto, UpdateProductPriceDto } from './product-sale.dto';
-import { ProductFilterDto, UpdateProductFilterDto } from './product-filter.dto';
 import {
-  IsArray,
-  IsInt, IsNumber,
-  IsOptional, IsPositive,
+  IsInt,
+  IsNumber,
+  IsOptional,
+  IsPositive,
   IsString,
   Min,
 } from 'class-validator';
@@ -38,31 +37,56 @@ export class ProductDto {
   category: CategoryDto;
 
   @Expose()
-  @Type(() => BrandDto)
-  @ApiProperty({
-    type: BrandDto,
-    description: 'The brand the product belongs to',
+  @ApiPropertyOptional({
+    example: 'Fruity',
+    description: 'The flavor of the product',
     nullable: true,
   })
-  brand: BrandDto;
+  brand?: string;
 
   @Expose()
-  @Type(() => ProductFilterDto)
-  @ApiProperty({
-    type: [ProductFilterDto],
-    description: 'The filters associated with the product',
+  @ApiPropertyOptional({
+    example: 'Fruity',
+    description: 'The flavor of the product',
     nullable: true,
   })
-  filters: ProductFilterDto[];
+  flavor: string;
 
   @Expose()
-  @Type(() => ProductSaleDto)
-  @ApiProperty({
-    type: () => [ProductSaleDto],
-    description: 'The prices associated with the product',
+  @ApiPropertyOptional({
+    example: 'Salty',
+    description: 'The nicotine type of the product',
     nullable: true,
   })
-  quantitySales: ProductSaleDto[];
+  nicotine: string;
+
+  @Expose()
+  @ApiPropertyOptional({
+    example: '6 MG',
+    description: 'The strength of the product',
+    nullable: true,
+  })
+  strength: string;
+
+  @Expose()
+  @ApiPropertyOptional()
+  quantitySales_5: number;
+
+  @Expose()
+  @ApiPropertyOptional()
+  quantitySales_10: number;
+
+  @Expose()
+  @ApiPropertyOptional()
+  quantitySales_20: number;
+
+  @Expose()
+  @ApiPropertyOptional()
+  quantitySales_40: number;
+
+  @Expose()
+  @ApiPropertyOptional()
+  quantitySales_100: number;
 
   @Expose()
   @ApiProperty({
@@ -143,36 +167,70 @@ export class CreateProductDto {
     example: 1,
     description: 'The ID of the category the product belongs to',
   })
+  @Type(() => Number)
   categoryID?: number;
 
   @Expose()
-  @IsInt()
-  @IsOptional()
   @ApiPropertyOptional({
-    example: 1,
-    description: 'The ID of the brand the product belongs to',
+    example: 'Fruity',
+    description: 'The flavor of the product',
+    nullable: true,
   })
-  brandID?: number;
+  brand?: string;
 
   @Expose()
-  @Type(() => UpdateProductFilterDto)
-  @IsOptional()
-  @IsArray()
   @ApiPropertyOptional({
-    type: () => [UpdateProductFilterDto],
-    description: 'The filters associated with the product',
+    example: 'Fruity',
+    description: 'The flavor of the product',
+    nullable: true,
   })
-  filters?: UpdateProductFilterDto[];
+  flavor: string;
 
   @Expose()
-  @Type(() => UpdateProductPriceDto)
-  @IsOptional()
-  @IsArray()
   @ApiPropertyOptional({
-    type: () => [UpdateProductPriceDto],
-    description: 'The prices associated with the product',
+    example: 'Salty',
+    description: 'The nicotine type of the product',
+    nullable: true,
   })
-  quantitySales?: UpdateProductPriceDto[];
+  nicotine: string;
+
+  @Expose()
+  @ApiPropertyOptional({
+    example: '6 MG',
+    description: 'The strength of the product',
+    nullable: true,
+  })
+  strength: string;
+
+  @Expose()
+  @IsOptional()
+  @ApiPropertyOptional()
+  @Transform(({ value }) => value ? value * 100 : value)
+  quantitySales_5: number;
+
+  @Expose()
+  @IsOptional()
+  @ApiPropertyOptional()
+  @Transform(({ value }) => value ? value * 100 : value)
+  quantitySales_10: number;
+
+  @Expose()
+  @IsOptional()
+  @ApiPropertyOptional()
+  @Transform(({ value }) => value ? value * 100 : value)
+  quantitySales_20: number;
+
+  @Expose()
+  @IsOptional()
+  @ApiPropertyOptional()
+  @Transform(({ value }) => value ? value * 100 : value)
+  quantitySales_40: number;
+
+  @Expose()
+  @IsOptional()
+  @ApiPropertyOptional()
+  @Transform(({ value }) => value ? value * 100 : value)
+  quantitySales_100: number;
 
   @Expose()
   @ApiProperty({
@@ -199,10 +257,12 @@ export class CreateProductDto {
 
   @Expose()
   @ApiPropertyOptional({ description: 'The image URL of the product' })
+  @Transform(({ value }) => (Array.isArray(value) ? value[0] : value))
   image?: string;
 
   @Expose()
   @IsInt()
+  @IsOptional()
   @ApiPropertyOptional({
     example: 10,
     description: 'The number of items in stock',
@@ -228,36 +288,40 @@ export class UpdateProductDto {
     example: 1,
     description: 'The ID of the category the product belongs to',
   })
+  @Type(() => Number)
   categoryID?: number;
 
   @Expose()
-  @IsOptional()
-  @IsString()
   @ApiPropertyOptional({
-    example: 1,
-    description: 'The ID of the brand the product belongs to',
+    example: 'Fruity',
+    description: 'The flavor of the product',
+    nullable: true,
   })
-  brandID?: number;
+  brand?: string;
 
   @Expose()
-  @Type(() => UpdateProductFilterDto)
-  @IsOptional()
-  @IsArray()
   @ApiPropertyOptional({
-    type: () => [UpdateProductFilterDto],
-    description: 'The filters associated with the product',
+    example: 'Fruity',
+    description: 'The flavor of the product',
+    nullable: true,
   })
-  filters?: UpdateProductFilterDto[];
+  flavor?: string;
 
   @Expose()
-  @Type(() => UpdateProductPriceDto)
-  @IsOptional()
-  @IsArray()
   @ApiPropertyOptional({
-    type: () => [UpdateProductPriceDto],
-    description: 'The prices associated with the product',
+    example: 'Salty',
+    description: 'The nicotine type of the product',
+    nullable: true,
   })
-  quantitySales?: UpdateProductPriceDto[];
+  nicotine?: string;
+
+  @Expose()
+  @ApiPropertyOptional({
+    example: '6 MG',
+    description: 'The strength of the product',
+    nullable: true,
+  })
+  strength?: string;
 
   @Expose()
   @ApiProperty({
@@ -272,6 +336,36 @@ export class UpdateProductDto {
     description: 'The price of the product',
   })
   buyingPrice: number;
+
+  @Expose()
+  @IsOptional()
+  @ApiPropertyOptional()
+  @Transform(({ value }) => value ? value * 100 : value)
+  quantitySales_5: number;
+
+  @Expose()
+  @IsOptional()
+  @ApiPropertyOptional()
+  @Transform(({ value }) => value ? value * 100 : value)
+  quantitySales_10: number;
+
+  @Expose()
+  @IsOptional()
+  @ApiPropertyOptional()
+  @Transform(({ value }) => value ? value * 100 : value)
+  quantitySales_20: number;
+
+  @Expose()
+  @IsOptional()
+  @ApiPropertyOptional()
+  @Transform(({ value }) => value ? value * 100 : value)
+  quantitySales_40: number;
+
+  @Expose()
+  @IsOptional()
+  @ApiPropertyOptional()
+  @Transform(({ value }) => value ? value * 100 : value)
+  quantitySales_100: number;
 
   @Expose()
   @IsOptional()
@@ -290,14 +384,17 @@ export class UpdateProductDto {
     nullable: true,
     required: false,
   })
+  @Transform(({ value }) => (Array.isArray(value) ? value[0] : value))
   image?: string;
 
   @Expose()
   @IsInt()
+  @IsOptional()
   @ApiPropertyOptional({
     example: 10,
     description: 'The number of items in stock',
   })
+  @Type(() => Number)
   inStock: number;
 }
 
@@ -334,4 +431,3 @@ export class UpdateStockDto {
   @IsOptional()
   price?: number;
 }
-

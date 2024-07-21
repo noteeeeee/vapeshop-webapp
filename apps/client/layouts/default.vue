@@ -4,7 +4,7 @@ import { Home, BookUser, UserRound } from "lucide-vue-next";
 
 <template>
   <div class="relative">
-    <div class="pt-8 px-6 pb-32 overflow-auto max-h-screen relative">
+    <div id="body" class="pt-8 px-6 pb-32 overflow-auto max-h-screen relative">
       <slot />
     </div>
     <div class="fixed bottom-0 w-full">

@@ -61,7 +61,7 @@ const server = computed<FilePondServerConfigProps["server"]>(() => {
       client
         .request({
           path: `/storage/filepond/load?source=${source}`,
-          responseType: "blob",
+          format: "blob",
           onDownloadProgress: (progressEvent) => {
             const progressPercent = Math.round(
               (progressEvent.loaded * 100) / progressEvent.total!,
@@ -109,7 +109,6 @@ const server = computed<FilePondServerConfigProps["server"]>(() => {
 
       return {
         abort: () => {
-          CancelToken.source().cancel("File upload cancelled");
           abort();
         },
       };

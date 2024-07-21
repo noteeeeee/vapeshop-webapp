@@ -12,8 +12,12 @@ export class ProductSaleDto {
   id: number;
 
   @Expose()
-  @ApiProperty({ example: 100, description: 'The price of the product' })
-  price: number;
+  @ApiProperty({ example: 100, description: 'The sale of the product' })
+  sale: number;
+
+  @Expose()
+  @ApiProperty({ example: 100, description: 'The quantity of the product' })
+  quantity: number;
 
   constructor(partial: Partial<ProductSaleEntity>) {
     Object.assign(this, partial);
@@ -23,8 +27,8 @@ export class ProductSaleDto {
 @Exclude()
 export class UpdateProductPriceDto {
   @Expose()
-  @ApiProperty({ example: 100, description: 'The price of the product' })
-  price: number;
+  @ApiProperty({ example: 100, description: 'The sale of the product' })
+  sale: number;
 
   @Expose()
   @ApiProperty({ example: 100, description: 'The quantity of the product' })

@@ -1,30 +1,54 @@
 <script setup lang="ts">
 import { useMounted } from "@vueuse/core";
-import { PackageCheck } from "lucide-vue-next";
+import { PackageCheck, LoaderCircle, Trash } from "lucide-vue-next";
+import { useCart } from "~/composables/useCart";
 
 const isMounted = useMounted();
+const {
+  totalPriceWithSale,
+  selected,
+  totalQuantity,
+  data,
+  updateItemQuality,
+  isLoadingUpdate,
+  deleteItem
+} = useCart();
+const additionalProducts = computed(() => {
+  const targetQuantities = [5, 10, 20, 40, 100];
+
+  for (const target of targetQuantities) {
+    if (totalQuantity.value < target) {
+      return target - totalQuantity.value;
+    }
+  }
+
+  return 0;
+});
 </script>
 
 <template>
   <div class="">
     <BackButton />
-    <div class="mt-6">
+    <div class="mt-6" v-auto-animate>
       <h2 class="text-3xl font-semibold">Корзина</h2>
       <div class="flex gap-x-4 mt-4">
         <div
           class="flex-1 bg-card p-4 shadow-md rounded-lg text-sm justify-center flex gap-x-2"
         >
           <span class="opacity-40">Всего товаров:</span>
-          <span class="text-text-primary">10</span>
+          <span class="text-text-primary">{{ selected?.length }}</span>
         </div>
         <div
           class="flex-1 bg-card p-4 shadow-md rounded-lg text-sm justify-center flex gap-x-2"
         >
           <span class="opacity-40">Сумма:</span>
-          <span class="text-text-primary">100 р</span>
+          <span class="text-text-primary">{{
+            $currency(totalPriceWithSale)
+          }}</span>
         </div>
       </div>
       <div
+        v-if="additionalProducts"
         class="mt-8 text-foreground/60 border-none p-0 flex items-center gap-x-2"
       >
         <div class="">
@@ -42,54 +66,87 @@ const isMounted = useMounted();
           </svg>
         </div>
         <div class="!mb-0 !pb-0 text-sm">
-          В заказе 16 флаконов, дополните корзину еще 4 флаконами, и цена станет
-          ниже.
+          В заказе {{ totalQuantity }} товаров, дополните корзину еще
+          {{ additionalProducts }} флаконами, и цена станет ниже.
         </div>
       </div>
-      <div class="mt-6 flex flex-col gap-y-4">
+      <div class="mt-6 flex flex-col gap-y-4" v-auto-animate>
         <div
-          v-for="i in 6"
-          class="bg-card p-4 flex items-center gap-x-2 rounded-md shadow-md"
+          v-for="item in data"
+          :key="item.uuid"
+          class="bg-card rounded-md shadow-md"
         >
-          <Card
-            class="p-2 border-none bg-popover rounded-md flex justify-center items-center aspect-square h-12"
-          >
-          </Card>
-          <div class="grid grid-cols-12 flex-1">
-            <div class="col-span-5">
-              <h4 class="truncate">Protest Liquid</h4>
-              <h5 class="opacity-60 text-xs truncate">Grape Soda</h5>
-            </div>
-            <div class="col-span-7 flex justify-end items-center gap-x-4">
-              <NumberField
-                :default-value="2"
-                class="max-w-24 text-xs h-8 overflow-hidden"
+          <IOSSwipe class="h-[80px]">
+            <div class="p-4 flex items-center gap-x-2">
+              <Card
+                class="p-2 border-none bg-popover rounded-md flex justify-center items-center aspect-square h-12"
               >
-                <NumberFieldContent class="h-8">
-                  <NumberFieldDecrement class="scale-75" />
-                  <NumberFieldInput class="h-8 text-xs" />
-                  <NumberFieldIncrement class="scale-75" />
-                </NumberFieldContent>
-              </NumberField>
-              <h4 class="text-text-primary">20 р</h4>
+                <NuxtImg :src="$sourceToUrl(item.product.image)" />
+              </Card>
+              <div class="grid grid-cols-12 flex-1 gap-x-2 items-center">
+                <div class="col-span-5">
+                  <h4 class="truncate">{{ item.product.brand }}</h4>
+                  <h5 class="opacity-60 text-xs truncate">
+                    {{ item.product.name }}
+                  </h5>
+                </div>
+                <div class="col-span-7 flex justify-end items-center gap-x-4">
+                  <FormKit
+                    type="numberfiled"
+                    :value="item.quantity"
+                    @input="
+                      (value) => updateItemQuality(item.uuid, value as any)
+                    "
+                    validation="required|number"
+                    :classes="{
+                      message: '!hidden',
+                      inner: 'max-w-24 text-xs overflow-hidden',
+                      outer: '!mb-0'
+                    }"
+                  >
+                    <NumberFieldDecrement class="scale-75" />
+                    <NumberFieldInput class="h-8 text-xs" />
+                    <NumberFieldIncrement class="scale-75" />
+                  </FormKit>
+                  <h4 class="text-text-primary">20 р</h4>
+                </div>
+              </div>
             </div>
-          </div>
+
+            <template #actions>
+              <div class="px-4 flex gap-2">
+                <Button @click="deleteItem(item.uuid)" size="icon" variant="destructive">
+                  <Trash class="h-6" />
+                </Button>
+              </div>
+            </template>
+          </IOSSwipe>
         </div>
       </div>
     </div>
     <Teleport to="#actionButton" v-if="isMounted">
       <div class="bg-background w-full absolute bottom-0">
-        <Button variant="orange" as-child>
+        <Button
+          class="transition-all"
+          :class="isLoadingUpdate && 'pointer-events-none opacity-50'"
+          variant="orange"
+          as-child
+        >
           <NuxtLink
             to="/checkout"
             class="w-full rounded-md flex items-center gap-x-4 h-12"
           >
-            <div class="flex gap-x-2 items-center">
-              <PackageCheck class="size-6" />
+            <div class="flex gap-x-2 items-center" v-auto-animate>
+              <div v-if="isLoadingUpdate">
+                <LoaderCircle class="size-6 animate-spin" />
+              </div>
+              <PackageCheck v-else class="size-6" />
               <span class="font-semibold text-xl">Оформить заказ</span>
             </div>
             <div class="h-4 border-x border-black"></div>
-            <span class="font-semibold text-xl">9.000 р</span>
+            <span class="font-semibold text-xl">{{
+              $currency(totalPriceWithSale)
+            }}</span>
           </NuxtLink>
         </Button>
       </div>

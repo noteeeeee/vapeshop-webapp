@@ -114,7 +114,7 @@ export interface CreateCategoryDto {
    * @example "Liquid"
    */
   name: string;
-  /** The SVG image for the category */
+  /** The image for the category */
   image?: string;
 }
 
@@ -256,37 +256,6 @@ export interface PaginatedDocumented {
   links: PaginatedLinksDocumented;
 }
 
-export interface ProductFilterDto {
-  /**
-   * The ID of the product this filter belongs to
-   * @example 1
-   */
-  productID: number;
-  /**
-   * The ID of the filter
-   * @example 1
-   */
-  filterID: number;
-  /**
-   * The value of the filter
-   * @example "Value"
-   */
-  value: string;
-}
-
-export interface ProductSaleDto {
-  /**
-   * The unique identifier for the product price
-   * @example 1
-   */
-  id: number;
-  /**
-   * The price of the product
-   * @example 100
-   */
-  price: number;
-}
-
 export interface ProductDto {
   /**
    * The unique identifier for the product
@@ -300,17 +269,46 @@ export interface ProductDto {
   name: string;
   /** The category the product belongs to */
   category: CategoryDto | null;
-  /** The brand the product belongs to */
-  brand: BrandDto | null;
-  /** The filters associated with the product */
-  filters: ProductFilterDto[] | null;
-  /** The prices associated with the product */
-  prices: ProductSaleDto[] | null;
+  /**
+   * The flavor of the product
+   * @example "Fruity"
+   */
+  brand?: string | null;
+  /**
+   * The flavor of the product
+   * @example "Fruity"
+   */
+  flavor?: string | null;
+  /**
+   * The nicotine type of the product
+   * @example "Salty"
+   */
+  nicotine?: string | null;
+  /**
+   * The strength of the product
+   * @example "6 MG"
+   */
+  strength?: string | null;
+  quantitySales_5?: number;
+  quantitySales_10?: number;
+  quantitySales_20?: number;
+  quantitySales_40?: number;
+  quantitySales_100?: number;
   /**
    * The number of times the product has been purchased
    * @example 100
    */
   purchased: number;
+  /**
+   * The price of the product
+   * @example 20
+   */
+  price: number;
+  /**
+   * The price of the product
+   * @example 20
+   */
+  buyingPrice: number;
   /**
    * The sale percentage of the product
    * @example 20
@@ -337,32 +335,6 @@ export interface ProductDto {
   created: string;
 }
 
-export interface UpdateProductFilterDto {
-  /**
-   * The ID of the filter
-   * @example 1
-   */
-  filterID: number;
-  /**
-   * The value of the filter
-   * @example "Value"
-   */
-  value: string;
-}
-
-export interface UpdateProductPriceDto {
-  /**
-   * The price of the product
-   * @example 100
-   */
-  price: number;
-  /**
-   * The quantity of the product
-   * @example 100
-   */
-  quantity: number;
-}
-
 export interface CreateProductDto {
   /**
    * The name of the product
@@ -375,19 +347,40 @@ export interface CreateProductDto {
    */
   categoryID?: number;
   /**
-   * The ID of the brand the product belongs to
-   * @example 1
+   * The flavor of the product
+   * @example "Fruity"
    */
-  brandID?: number;
-  /** The filters associated with the product */
-  filters?: UpdateProductFilterDto[];
-  /** The prices associated with the product */
-  quantitySales?: UpdateProductPriceDto[];
+  brand?: string | null;
+  /**
+   * The flavor of the product
+   * @example "Fruity"
+   */
+  flavor?: string | null;
+  /**
+   * The nicotine type of the product
+   * @example "Salty"
+   */
+  nicotine?: string | null;
+  /**
+   * The strength of the product
+   * @example "6 MG"
+   */
+  strength?: string | null;
+  quantitySales_5?: number;
+  quantitySales_10?: number;
+  quantitySales_20?: number;
+  quantitySales_40?: number;
+  quantitySales_100?: number;
   /**
    * The price of the product
-   * @example 120
+   * @example 20
    */
   price: number;
+  /**
+   * The price of the product
+   * @example 20
+   */
+  buyingPrice: number;
   /**
    * The sale percentage of the product
    * @example 20
@@ -414,14 +407,40 @@ export interface UpdateProductDto {
    */
   categoryID?: number;
   /**
-   * The ID of the brand the product belongs to
-   * @example 1
+   * The flavor of the product
+   * @example "Fruity"
    */
-  brandID?: number;
-  /** The filters associated with the product */
-  filters?: UpdateProductFilterDto[];
-  /** The prices associated with the product */
-  prices?: UpdateProductPriceDto[];
+  brand?: string | null;
+  /**
+   * The flavor of the product
+   * @example "Fruity"
+   */
+  flavor?: string | null;
+  /**
+   * The nicotine type of the product
+   * @example "Salty"
+   */
+  nicotine?: string | null;
+  /**
+   * The strength of the product
+   * @example "6 MG"
+   */
+  strength?: string | null;
+  /**
+   * The price of the product
+   * @example 20
+   */
+  price: number;
+  /**
+   * The price of the product
+   * @example 20
+   */
+  buyingPrice: number;
+  quantitySales_5?: number;
+  quantitySales_10?: number;
+  quantitySales_20?: number;
+  quantitySales_40?: number;
+  quantitySales_100?: number;
   /**
    * The sale percentage of the product
    * @example 20
@@ -442,6 +461,16 @@ export interface UpdateStockDto {
    * @example 10
    */
   quantity: number;
+  /**
+   * The buying price of the new stock
+   * @example 5.5
+   */
+  buyingPrice?: number;
+  /**
+   * The selling price of the new stock
+   * @example 7.5
+   */
+  price?: number;
 }
 
 export interface OrderCreateStatusDto {
@@ -1312,6 +1341,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Products
+     * @name ProductsControllerFindOne
+     * @summary Find a product by ID
+     * @request GET:/products/{id}
+     * @secure
+     */
+    productsControllerFindOne: (id: number, params: RequestParams = {}) =>
+      this.request<ProductDto, void>({
+        path: `/products/${id}`,
+        method: 'GET',
+        secure: true,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Products
      * @name ProductsControllerUpdate
      * @summary Update a product by ID
      * @request PATCH:/products/{id}
@@ -1635,7 +1682,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/cart
      */
     cartControllerCreate: (data: CartCreateDto, params: RequestParams = {}) =>
-      this.request<CartCreateDto, void>({
+      this.request<CartDto, void>({
         path: `/cart`,
         method: 'POST',
         body: data,

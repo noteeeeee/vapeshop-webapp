@@ -5,7 +5,7 @@ import { CategoryEntity } from '../entities';
 import { CreateCategoryDto, UpdateCategoryDto } from '../dto';
 import {runOnTransactionRollback, Transactional} from "typeorm-transactional";
 import {StorageService} from "../../storage";
-import {omit} from "lodash";
+import {omit, pick} from "lodash";
 
 @Injectable()
 export class CategoriesService {
@@ -53,7 +53,7 @@ export class CategoriesService {
     );
     category.image = image;
 
-    const entity = Object.assign(data, omit(category, 'image'));
+    const entity = Object.assign(data, pick(category, 'image'));
     await this.categoriesRepo.update({ id }, entity);
     return this.findOne(id);
   }

@@ -66,7 +66,7 @@ export class CartEntity {
   @PriceColumn({ nullable: true })
   price: number;
 
-  @PriceColumn()
+  @PriceColumn({ nullable: true })
   buyingPrice: number;
 
   @Column({ nullable: true })
