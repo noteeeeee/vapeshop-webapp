@@ -32,8 +32,8 @@ import { UserEntity } from '../users';
 import { ProductsService } from '../products/products.service';
 import { Transactional } from 'typeorm-transactional';
 import { UsersService } from '../users/users.service';
-import { AuditService } from '../audit/audit.service';
-import { AuditType } from '../audit';
+import { ShowcaseService } from '../showcase/showcase.service';
+import {ShowcaseOperation} from "../showcase";
 
 export const paginateConfig: PaginateConfig<OrderEntity> = {
   sortableColumns: ['id', 'created', 'updated'],
@@ -71,26 +71,13 @@ export class OrdersService {
     private deliveryService: DeliveryService,
     private productsService: ProductsService,
     private usersService: UsersService,
-    private auditService: AuditService,
+    private showcaseService: ShowcaseService,
   ) {}
 
   @Transactional()
   async create(user: UserEntity, data: OrderCreateStatusDto) {
     const items = await this.cartService.find(user.id, data.cartUUIDs);
     if (!items?.length) throw new BadRequestException('No items in your cart');
-
-    for (const item of items) {
-      if (
-        item.quantity &&
-        item.product.inStock &&
-        item.product.inStock == item.quantity
-      ) {
-        await this.auditService.create(
-          AuditType.PRODUCT_OUT_OF_STOCK,
-          item.product,
-        );
-      }
-    }
 
     const decrementOperations = items.map(({ product, quantity }) => ({
       id: product.id,
@@ -119,7 +106,10 @@ export class OrdersService {
       );
 
     const order = await this.findOne(orderID, user.id);
-    await this.auditService.create(AuditType.ORDER_CREATED, order);
+    await this.showcaseService.create({
+      type: ShowcaseOperation.OrderPurchase,
+      orderID: order.id
+    }, user);
 
     return Object.assign(order, {
       productsExcluded: inStockDecrementProducts.length < items.length,
@@ -237,10 +227,6 @@ export class OrdersService {
       await this.ordersRepo.delete({ id });
     } else if (!userID) {
       await this.ordersRepo.update({ id }, { status: data.status });
-      await this.auditService.create(AuditType.ORDER_STATUS_UPDATED, order, {
-        oldStatus: order.status,
-        newStatus: data.status,
-      });
     }
 
     if (order.status == OrderStatus.CANCELED) {
@@ -294,17 +280,9 @@ export class OrdersService {
 
     if (remainingAmount > 0) {
       await this.usersService.decrementBalance(user.id, remainingAmount);
-      await this.auditService.create(AuditType.BALANCE_DECREMENT, user, {
-        oldBalance: user.id,
-        newBalance: user.balance - remainingAmount,
-      });
     }
 
     await this.ordersRepo.update({ id }, { status: OrderStatus.PROCESSING });
-    await this.auditService.create(AuditType.ORDER_STATUS_UPDATED, order, {
-      oldStatus: order.status,
-      newStatus: OrderStatus.PROCESSING,
-    });
     return Object.assign(order, { status: OrderStatus.PROCESSING });
   }
 

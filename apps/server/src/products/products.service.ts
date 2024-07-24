@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { runOnTransactionRollback, Transactional } from 'typeorm-transactional';
 import { StorageService } from '../storage';
-import {omit, pick} from 'lodash';
+import { pick } from 'lodash';
 import { ProductEntity } from './entities';
 import { CategoriesService } from '../categories/services';
 import { CreateProductDto, UpdateProductDto, UpdateStockDto } from './dto';
@@ -11,8 +11,7 @@ import { OrderStatus } from '../orders/order.types';
 import { CartEntity } from '../cart';
 import { FilterOperator, PaginateConfig, PaginateQuery } from 'nestjs-paginate';
 import { paginate } from '../common';
-import { AuditService } from '../audit/audit.service';
-import { AuditType } from '../audit';
+import { ShowcaseService } from '../showcase/showcase.service';
 
 export const paginateConfig: PaginateConfig<ProductEntity> = {
   sortableColumns: [
@@ -40,7 +39,7 @@ export class ProductsService {
     private productsRepo: Repository<ProductEntity>,
     private categoriesService: CategoriesService,
     private storageService: StorageService,
-    private auditService: AuditService,
+    private auditService: ShowcaseService,
   ) {}
 
   findOne(id: number) {
@@ -125,7 +124,7 @@ export class ProductsService {
 
     const entity = Object.assign(data, pick(product, 'image'));
     await this.productsRepo.update({ id }, entity);
-    return this.findOne(id)
+    return this.findOne(id);
   }
 
   async delete(id: number) {
@@ -158,12 +157,9 @@ export class ProductsService {
       },
     );
 
-    await this.auditService.create(AuditType.PRODUCT_STOCK_INCREMENT, product, {
+    return Object.assign(product, {
       oldStock: product.inStock,
       newStock,
-    });
-
-    return Object.assign(product, {
       inStock: newStock,
       buyingPrice: newBuyingPrice,
       price: data.price,
@@ -196,6 +192,8 @@ export class ProductsService {
       inStock: newStock,
       buyingPrice: newBuyingPrice,
       price: data.price,
+      oldStock: product.inStock,
+      newStock,
     });
   }
 
@@ -235,5 +233,59 @@ export class ProductsService {
 
     const results = await Promise.all(decrementOperations);
     return results.filter(Boolean); // Filter out undefined results
+  }
+
+  @Transactional()
+  async bulkUpdateStock(
+    updates: {
+      productId: number;
+      quantity: number;
+      buyingPrice?: number;
+      price?: number;
+    }[],
+  ) {
+    const productIds = updates.map((item) => item.productId);
+    const products = await this.productsRepo.findBy({
+      id: In(productIds),
+    });
+
+    if (products.length !== productIds.length) {
+      throw new NotFoundException('One or more products not found');
+    }
+
+    const updateOperations = updates.map(
+        async ({ productId, quantity, buyingPrice, price }) => {
+          const product = products.find((p) => p.id === productId);
+
+          if (product) {
+            // Determine if there are changes to be made
+            const hasChanges =
+                product.inStock !== quantity ||
+                (buyingPrice && product.buyingPrice !== buyingPrice) ||
+                (price && product.price !== price);
+
+            if (hasChanges) {
+              // Update the product only if there are changes
+              await this.productsRepo.update(productId, {
+                inStock: quantity,
+                buyingPrice,
+                price,
+              });
+
+              return {
+                ...product,
+                oldStock: product.inStock,
+                newStock: quantity,
+                buyingPrice,
+                price,
+              };
+            }
+          }
+          return null; // Return null for unchanged products
+        },
+    );
+
+    const results = await Promise.all(updateOperations);
+    return results.filter(Boolean);
   }
 }

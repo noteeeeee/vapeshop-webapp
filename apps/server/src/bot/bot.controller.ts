@@ -3,23 +3,28 @@ import {
   Get,
   Header,
   NotFoundException,
+  Param,
   Res,
 } from '@nestjs/common';
-import {ApiOperation, ApiProduces, ApiResponse, ApiTags} from '@nestjs/swagger';
-import { InjectBot } from 'nestjs-telegraf';
-import { Telegraf } from 'telegraf';
-import axios from 'axios';
-import { User } from '../auth/decorators';
+import {
+  ApiOperation,
+  ApiProduces,
+  ApiResponse,
+  ApiTags,
+  ApiParam,
+} from '@nestjs/swagger';
+import {Public, User} from '../auth/decorators';
 import { UserEntity } from '../users';
-import { Response } from "express"
+import { Response } from 'express';
+import { AvatarCacheService } from './avatar-cache.service';
 
 @Controller('bot')
 @ApiTags('bot')
 export class BotController {
-  constructor(@InjectBot() private bot: Telegraf) {}
+  constructor(private avatarCacheService: AvatarCacheService) {}
 
   @Get('avatar')
-  @Header('Cache-Control', 'public, max-age=3600')
+  @Header('Cache-Control', 'public, max-age=604800') // Cache for 1 week
   @ApiOperation({ summary: 'Get user avatar' })
   @ApiProduces('image/jpeg') // or the appropriate MIME type for the image
   @ApiResponse({
@@ -36,22 +41,31 @@ export class BotController {
   })
   @ApiResponse({ status: 404, description: 'Not Found' })
   async avatar(@Res() res: Response, @User() user: UserEntity) {
-    try {
-      const avatars = await this.bot.telegram.getUserProfilePhotos(
-        user.id,
-        undefined,
-        1,
-      );
-      const photoId = avatars.photos?.[0]?.[0]?.file_id;
-      const { href } = await this.bot.telegram.getFileLink(photoId);
+    return this.getAvatarById(res, user.id.toString());
+  }
 
-      axios({
-        method: 'get',
-        url: href,
-        responseType: 'stream',
-      }).then(function (response) {
-        response.data.pipe(res);
-      });
+  @Get('avatar/:id')
+  @Header('Cache-Control', 'public, max-age=604800') // Cache for 1 week
+  @ApiOperation({ summary: 'Get user avatar by ID' })
+  @ApiProduces('image/jpeg') // or the appropriate MIME type for the image
+  @ApiParam({ name: 'id', description: 'User ID' })
+  @ApiResponse({
+    status: 200,
+    description: 'The avatar image',
+    content: {
+      'image/jpeg': {
+        schema: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  async getAvatarById(@Res() res: Response, @Param('id') id: string) {
+    try {
+      const avatarPath = await this.avatarCacheService.getAvatar(id);
+      res.sendFile(avatarPath);
     } catch (e) {
       throw new NotFoundException();
     }

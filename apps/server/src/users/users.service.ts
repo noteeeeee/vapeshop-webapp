@@ -10,12 +10,6 @@ import { UserEntity } from './user.entity';
 import { ReferralStatsDto, UsersStats, UserUpdateDto } from './user.dto';
 import { InjectDayjs, dayjs, paginate } from '../common';
 import { PaginateConfig, PaginateQuery } from 'nestjs-paginate';
-import { AuditService } from '../audit/audit.service';
-import { AuditType } from '../audit';
-import axios from 'axios';
-import { InjectBot } from 'nestjs-telegraf';
-import { Telegraf } from 'telegraf';
-import { Response } from "express"
 
 export const paginateConfig: PaginateConfig<UserEntity> = {
   sortableColumns: ['id', 'created'],
@@ -29,7 +23,6 @@ export class UsersService {
   private logger = new Logger(UsersService.name);
 
   constructor(
-    private auditService: AuditService,
     @InjectDayjs() private dayjs: dayjs,
     @InjectRepository(UserEntity) private usersRepo: Repository<UserEntity>,
   ) {}
@@ -83,20 +76,6 @@ export class UsersService {
       throw new ForbiddenException(
         'You cannot modify your own admin privileges.',
       );
-    }
-
-    if (data.balance && data.balance > user.balance) {
-      await this.auditService.create(AuditType.BALANCE_INCREMENT, user, {
-        oldBalance: user.balance,
-        newBalance: data.balance,
-      });
-    }
-
-    if (data.balance && data.balance < user.balance) {
-      await this.auditService.create(AuditType.BALANCE_DECREMENT, user, {
-        oldBalance: user.balance,
-        newBalance: data.balance,
-      });
     }
 
     await this.usersRepo.update({ id }, data);
